@@ -1,0 +1,100 @@
+// Central school configuration. Edit here; do not scatter these details in components.
+
+export const school = {
+  name: 'Kalinga Model Residential School',
+  fullName: 'Kalinga Model Residential School, Umerkote, Nabarangpur',
+  shortName: 'KMRS Umerkote',
+  tagline: 'Learning Today. Building Tomorrow.',
+  category: 'Government Residential School',
+  board: 'Central Board of Secondary Education (CBSE)',
+  affiliationNo: '1520301',
+  affiliationLevel: 'Senior Secondary',
+  affiliationPeriod: '1 April 2025 to 31 March 2030',
+  established: 2018,
+  firstOpened: '1 April 2018',
+  department: 'ST & SC Development Department, Government of Odisha',
+  state: 'Odisha',
+  district: 'Nabarangpur',
+  address: {
+    line: 'AT/PO/PS-Umerkote, District Nabarangpur',
+    state: 'Odisha',
+    pin: '764073',
+    full: 'Kalinga Model Residential School, Umerkote, Nabarangpur, Odisha 764073',
+  },
+  // Address-based search until exact coordinates are confirmed.
+  mapUrl:
+    'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent('Kalinga Model Residential School, Umerkote, Nabarangpur, Odisha 764073'),
+
+  // Found in a third-party directory only. Set verified: true once the school confirms.
+  phone: { value: '06858-222119', verified: false },
+  email: { value: 'kmrsnbr@gmail.com', verified: false },
+  officeHours: { value: '', verified: false },
+
+  // CBSE record and a third-party directory disagree on the principal.
+  // Show nothing until the school confirms. Set name + verified: true when ready.
+principal: {
+  name: 'Asit Kumar Mohanty',
+  message:
+    'We are committed to providing quality education in a supportive environment that encourages academic excellence, discipline, and the all-round development of every student. Our aim is to nurture responsible, confident, and compassionate individuals prepared to contribute positively to society.',
+  verified: true,
+},
+
+  links: {
+    cbseRecord: 'https://saras.cbse.gov.in/saras/AffiliatedList/AfflicationDetails/1520301',
+    admissions: 'https://stsc.odisha.gov.in/en/node/202779',
+    disclosureRules: 'https://saras.cbse.gov.in/SARAS/Mandatory_public_disclosure.pdf',
+  },
+
+  lastUpdated: 'October 2026',
+};
+
+// Facts shown in "School at a glance". All verified from the CBSE record.
+export const glance = [
+  { label: 'Established', value: String(school.established) },
+  { label: 'Management', value: 'Government of Odisha' },
+  { label: 'CBSE Affiliation No.', value: school.affiliationNo },
+  { label: 'Location', value: 'Umerkote, Nabarangpur' },
+  { label: 'School Model', value: 'Residential' },
+  { label: 'Department', value: 'ST & SC Development' },
+];
+
+// Navigation. Items with `children` render as dropdowns.
+export const navigation = [
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about' },
+  {
+    label: 'Academics',
+    to: '/academics',
+    children: [
+      { label: 'Academics Overview', to: '/academics' },
+      { label: 'Examination Results', to: '/results' },
+    ],
+  },
+  { label: 'Admissions', to: '/admissions' },
+  {
+    label: 'Campus Life',
+    to: '/residential-life',
+    children: [
+      { label: 'Residential Life', to: '/residential-life' },
+      { label: 'Facilities', to: '/facilities' },
+      { label: 'Student Life', to: '/student-life' },
+      { label: 'Gallery', to: '/gallery' },
+    ],
+  },
+  { label: 'Notices & Downloads', to: '/notices' },
+  { label: 'Public Disclosure', to: '/public-disclosure' },
+  { label: 'Contact Us', to: '/contact' },
+];
+
+// Content that needs school approval before it is treated as final.
+export const proposedContent = {
+  vision:
+    'To be a school where every student, regardless of background, has access to quality education and the confidence to grow into a responsible citizen.',
+  mission: [
+    'Provide accessible, quality education in a supportive residential environment.',
+    'Encourage learning, curiosity and personal development in every student.',
+    'Promote inclusion, respect and responsible citizenship.',
+  ],
+  approved: true,
+};

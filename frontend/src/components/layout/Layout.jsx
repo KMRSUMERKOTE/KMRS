@@ -1,0 +1,38 @@
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import TopBar from './TopBar';
+import Header from './Header';
+import Footer from './Footer';
+
+export default function Layout() {
+  const { pathname, hash } = useLocation();
+
+  // On every page change: jump to a #section if the link has one, otherwise scroll to the top.
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView();
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded bg-white px-4 py-2 font-semibold text-forest-900 focus:not-sr-only focus:absolute focus:left-2 focus:top-2"
+      >
+        Skip to main content
+      </a>
+      <TopBar />
+      <Header />
+      <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+}
