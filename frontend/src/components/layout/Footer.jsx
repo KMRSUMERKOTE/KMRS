@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { school } from '../../config/school';
 
-const linkClass = 'transition-colors hover:text-white hover:underline focus-visible:text-white focus-visible:underline';
+const linkClass = 'footer-link';
 
 function Column({ title, children }) {
   return (
@@ -70,9 +70,19 @@ export default function Footer() {
 
         <Column title="Contact">
           <ul className="mt-3 space-y-2 text-sm">
-            {phone && <li><a className={linkClass} href={`tel:${phone.replace(/[^+\d]/g, '')}`}>{phone}</a></li>}
-            {email && <li><a className={linkClass} href={`mailto:${email}`}>{email}</a></li>}
-            {!phone && !email && <li>Contact details will be published after confirmation by the school.</li>}
+            {phone && (
+              <li>
+                <a className={linkClass} href={`tel:${phone.replace(/[^\+\d]/g, '')}`}>{phone}</a>
+              </li>
+            )}
+            {email && (
+              <li>
+                <a className={linkClass} href={`mailto:${email}`}>{email}</a>
+              </li>
+            )}
+            {!phone && !email && (
+              <li>Contact details will be published after confirmation by the school.</li>
+            )}
             <li>
               <a className={linkClass} href={school.mapUrl} target="_blank" rel="noopener noreferrer">
                 Find us on Google Maps

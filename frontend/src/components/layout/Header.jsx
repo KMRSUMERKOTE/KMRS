@@ -2,23 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { navigation, school } from '../../config/school';
 import { useAuth } from '../../context/AuthContext';
+import { Pencil } from '../common/Doodles';
 
-const linkBase = 'px-3 py-2 text-sm font-medium rounded transition-colors';
-const linkClass = ({ isActive }) =>
-  `${linkBase} ${isActive ? 'bg-forest-800 text-white' : 'text-forest-900 hover:bg-forest-50'}`;
-const blockLinkClass = ({ isActive }) => `block ${linkClass({ isActive })}`;
+const linkBase = 'nav-link px-3 py-2 text-sm font-medium rounded text-forest-900 transition-colors';
+const linkClass = () => linkBase;
+const blockLinkClass = () => `block ${linkBase}`;
 
 function Wordmark() {
   return (
-    <Link to="/" className="flex items-center gap-3" aria-label={`${school.fullName} – home`}>
-      {/* School logo served from public/images. */}
+    <Link to="/" className="group flex items-center gap-3" aria-label={`${school.fullName} – home`}>
       <img
         src="/images/KMRS-logo.png"
         alt=""
         aria-hidden="true"
         width="56"
         height="56"
-        className="h-12 w-auto shrink-0 object-contain sm:h-14"
+        className="h-12 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 motion-reduce:transition-none sm:h-14"
       />
       <span className="leading-tight">
         <span className="block font-serif text-base font-bold text-forest-900 sm:text-lg">
@@ -58,9 +57,7 @@ function DesktopDropdown({ item }) {
         aria-expanded={open}
         aria-haspopup="true"
         onClick={() => setOpen((o) => !o)}
-        className={`${linkBase} flex items-center gap-1.5 ${
-          active ? 'bg-forest-800 text-white' : 'text-forest-900 hover:bg-forest-50'
-        }`}
+        className={`${linkBase} flex items-center gap-1.5 ${active ? 'is-active' : ''}`}
       >
         {item.label}
         <span
@@ -71,16 +68,16 @@ function DesktopDropdown({ item }) {
         </span>
       </button>
       {open && (
-        <ul className="absolute left-0 top-full z-40 mt-1 w-56 overflow-hidden rounded border border-forest-100 border-t-2 border-t-ochre-500 bg-white py-1 shadow-card">
+        <ul className="paper absolute left-0 top-full z-40 mt-1 w-56 overflow-hidden rounded-md border border-forest-100 border-t-2 border-t-ochre-500 py-1 shadow-lift">
           {item.children.map((c) => (
             <li key={c.to}>
               <NavLink
                 to={c.to}
                 end
                 className={({ isActive }) =>
-                  `block border-l-4 px-4 py-2 text-sm transition-colors ${
+                  `block border-l-4 px-4 py-2 text-sm transition-all hover:pl-5 ${
                     isActive
-                      ? 'border-l-ochre-500 bg-forest-50 font-semibold text-forest-900'
+                      ? 'border-l-ochre-500 bg-ochre-50 font-semibold text-forest-900'
                       : 'border-l-transparent text-ink hover:bg-forest-50'
                   }`
                 }
@@ -109,7 +106,6 @@ export default function Header() {
     return () => document.removeEventListener('keydown', onKey);
   }, []);
 
-  // A soft shadow appears once the page has scrolled, so the sticky header reads as floating.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -121,8 +117,8 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-30 border-b border-forest-100 bg-white transition-shadow motion-reduce:transition-none ${
-        scrolled ? 'shadow-md' : ''
+      className={`paper sticky top-0 z-30 border-b-2 border-forest-100 transition-shadow motion-reduce:transition-none ${
+        scrolled ? 'shadow-lift' : ''
       }`}
     >
       <div className="container-page flex items-center justify-between gap-4 py-3">
@@ -150,7 +146,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="rounded border border-forest-800 px-4 py-2 text-sm font-semibold text-forest-800 hover:bg-forest-50 xl:hidden"
+          className="rounded-md border-2 border-forest-800 px-4 py-2 text-sm font-semibold text-forest-800 hover:bg-forest-50 xl:hidden"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           onClick={() => setMobileOpen((o) => !o)}
@@ -159,9 +155,9 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Desktop navigation */}
-      <nav aria-label="Main navigation" className="hidden border-t border-forest-100 bg-ivory xl:block">
-        <div className="container-page">
+      {/* Desktop navigation: ruled-notebook strip */}
+      <nav aria-label="Main navigation" className="ruled hidden border-t border-forest-100 xl:block">
+        <div className="container-page flex items-center">
           <ul className="flex items-center gap-1 py-1.5">
             {navigation.map((item) => (
               <li key={item.label}>
@@ -175,6 +171,7 @@ export default function Header() {
               </li>
             ))}
           </ul>
+          <Pencil className="ml-auto hidden w-24 -rotate-3 2xl:block" />
         </div>
       </nav>
 
@@ -183,7 +180,7 @@ export default function Header() {
         <nav
           id="mobile-nav"
           aria-label="Mobile navigation"
-          className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-forest-100 bg-ivory xl:hidden"
+          className="ruled max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-forest-100 xl:hidden"
         >
           <ul className="container-page space-y-1 py-3">
             {navigation.map((item) => (

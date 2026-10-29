@@ -5,7 +5,10 @@ import PageHeader from '../../components/common/PageHeader';
 import PendingInfo from '../../components/common/PendingInfo';
 import SafeImage from '../../components/common/SafeImage';
 import Lightbox from '../../components/common/Lightbox';
+import { Reveal } from '../../components/common/Motion';
 import { galleryCategories } from '../../config/options';
+
+const tilt = ['-1.5deg', '1deg', '-0.5deg', '1.5deg', '-1deg', '0.5deg'];
 
 export default function Gallery() {
   usePageTitle('Photo Gallery');
@@ -54,10 +57,10 @@ export default function Gallery() {
                   type="button"
                   aria-pressed={category === c}
                   onClick={() => setCategory(c)}
-                  className={`flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 rounded-md border-2 px-4 py-1.5 text-sm font-medium transition ${
                     category === c
-                      ? 'border-forest-800 bg-forest-800 text-white'
-                      : 'border-forest-200 bg-white text-forest-900 hover:bg-forest-50'
+                      ? 'border-forest-800 bg-forest-800 text-white shadow-[0_3px_0_#1a1640]'
+                      : 'border-forest-200 bg-white text-forest-900 hover:bg-ochre-50'
                   }`}
                 >
                   {c}
@@ -72,34 +75,37 @@ export default function Gallery() {
               ))}
             </div>
 
-            <p className="mb-3 text-sm text-slate-600" role="status">
+            <p className="mb-4 text-sm text-slate-600" role="status">
               Showing {filtered.length} {filtered.length === 1 ? 'photograph' : 'photographs'}
             </p>
 
-            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
               {filtered.map((p, i) => (
-                <li key={p._id}>
+                <Reveal as="li" key={p._id} delay={(i % 4) * 70}>
                   <button
                     type="button"
                     onClick={(e) => {
                       openerRef.current = e.currentTarget;
                       setActive(i);
                     }}
-                    className="group relative block w-full overflow-hidden rounded border border-forest-100 bg-white text-left shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700"
+                    style={{ '--r': tilt[i % tilt.length] }}
+                    className="paper group block w-full rotate-[var(--r)] border border-forest-100 p-2 pb-3 text-left shadow-card transition duration-300 hover:z-10 hover:rotate-0 hover:shadow-lift focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700 motion-reduce:rotate-0 motion-reduce:transition-none"
                     aria-label={`Open photograph: ${p.caption || p.alt || 'School photograph'}`}
                   >
-                    <SafeImage
-                      src={p.url}
-                      alt={p.alt || p.caption}
-                      className="transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
-                    />
+                    <div className="overflow-hidden">
+                      <SafeImage
+                        src={p.url}
+                        alt={p.alt || p.caption}
+                        className="transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                      />
+                    </div>
                     {p.caption && (
-                      <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-950/90 to-transparent p-3 pt-8 text-xs text-white opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
+                      <span className="mt-2 block text-center font-hand text-lg leading-tight text-forest-900">
                         {p.caption}
                       </span>
                     )}
                   </button>
-                </li>
+                </Reveal>
               ))}
             </ul>
           </>

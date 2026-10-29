@@ -1,15 +1,62 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import usePageTitle from '../../hooks/usePageTitle';
 import PageHeader from '../../components/common/PageHeader';
 import PendingInfo from '../../components/common/PendingInfo';
+import { Reveal } from '../../components/common/Motion';
 import { school, proposedContent } from '../../config/school';
 
 function Block({ id, title, children }) {
   return (
-    <section id={id} className="card scroll-mt-24 border-l-4 border-l-forest-700 p-6">
+    <Reveal as="section" id={id} className="card paper scroll-mt-24 border-l-4 border-l-forest-700 p-6">
       <h2 className="section-title !text-xl sm:!text-2xl">{title}</h2>
       <div className="mt-3 space-y-3 leading-relaxed text-slate-700">{children}</div>
-    </section>
+    </Reveal>
+  );
+}
+
+// Polaroid-style photo: white print, a little tilt, a strip of yellow tape and a handwritten-feel caption.
+// Photo path: set school.principal.photo in config/school, or drop the file at public/images/principal.jpg.
+// If the image can't load, a neutral placeholder is shown instead of a broken icon.
+const PRINCIPAL_PHOTO_FALLBACK = '/images/principal-image.jpeg';
+
+function PrincipalPhoto({ name }) {
+  const [failed, setFailed] = useState(false);
+  const src = school.principal?.photo || PRINCIPAL_PHOTO_FALLBACK;
+  const caption = name?.trim() || 'Principal';
+
+  return (
+    <figure className="relative mx-auto w-56 shrink-0 rotate-[-2deg] transition-transform duration-300 ease-out hover:rotate-0 motion-reduce:transition-none md:mx-0 md:w-60">
+      {/* Tape */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 rotate-[3deg] border border-ochre-500/30 bg-[#f4e09a]/90 shadow-sm"
+      />
+      <div className="border border-forest-100 bg-white p-3 pb-4 shadow-md">
+        {failed ? (
+          <div
+            role="img"
+            aria-label={`Photo of ${caption} (not available)`}
+            className="flex aspect-[4/5] w-full items-center justify-center bg-forest-50 font-serif text-5xl font-semibold text-forest-700"
+          >
+            {caption.charAt(0).toUpperCase()}
+          </div>
+        ) : (
+          <img
+            src={src}
+            alt={`Portrait of ${caption}, Principal of ${school.shortName || school.name}`}
+            loading="lazy"
+            onError={() => setFailed(true)}
+            className="aspect-[4/5] w-full bg-forest-50 object-cover object-top"
+          />
+        )}
+        <figcaption className="mt-3 text-center">
+          <p className="font-serif text-base font-semibold text-forest-900">{caption}</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Principal</p>
+          <div className="mx-auto mt-2 h-0.5 w-8 bg-ochre-500" aria-hidden="true" />
+        </figcaption>
+      </div>
+    </figure>
   );
 }
 
@@ -26,8 +73,30 @@ const sections = [
   ['location', 'Location'],
 ];
 
+// Highlights the side-nav entry for the section currently near the top of the viewport.
+function useActiveSection(ids) {
+  const [active, setActive] = useState(ids[0]);
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return undefined;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: '-15% 0px -70% 0px' }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [ids]);
+  return active;
+}
+
+const ids = sections.map(([id]) => id);
+const noteTilts = ['-2deg', '1.5deg', '1deg', '-1.5deg'];
+
 export default function About() {
   usePageTitle('About Us');
+  const active = useActiveSection(ids);
 
   const keyFacts = [
     ['Founded', String(school.established)],
@@ -57,16 +126,18 @@ export default function About() {
     ['Responsible citizenship', 'Preparing students to take part in their communities.'],
   ];
 
+  const hasMessage = school.principal.verified && school.principal.message?.trim();
+
   return (
     <>
       <PageHeader title="About Us" subtitle="Kalinga Model Residential School, Umerkote, Nabarangpur" />
 
       {/* Key facts */}
-      <div className="border-b border-forest-100 bg-white">
+      <div className="paper border-b border-forest-100">
         <div className="container-page py-6">
-          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded border border-forest-100 bg-forest-100 lg:grid-cols-4">
+          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-forest-100 bg-forest-100 lg:grid-cols-4">
             {keyFacts.map(([k, v]) => (
-              <div key={k} className="bg-white p-4">
+              <div key={k} className="paper p-4">
                 <dt className="text-xs font-semibold text-slate-500">{k}</dt>
                 <dd className="mt-1 font-serif text-lg font-semibold text-forest-900">{v}</dd>
               </div>
@@ -76,14 +147,19 @@ export default function About() {
       </div>
 
       <div className="container-page grid gap-8 py-10 lg:grid-cols-[220px_1fr]">
-        {/* In-page navigation */}
+        {/* In-page navigation: follows the reader */}
         <nav aria-label="On this page" className="hidden lg:block">
-          <ul className="sticky top-24 space-y-1 border-l-2 border-forest-100">
+          <ul className="sticky top-32 space-y-1 border-l-2 border-dashed border-forest-200">
             {sections.map(([id, label]) => (
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className="-ml-0.5 block border-l-2 border-transparent py-1.5 pl-4 text-sm text-slate-600 hover:border-ochre-500 hover:text-forest-900 focus-visible:border-ochre-500 focus-visible:text-forest-900"
+                  aria-current={active === id ? 'location' : undefined}
+                  className={`-ml-0.5 block border-l-4 py-1.5 pl-4 text-sm transition-all hover:border-ochre-500 hover:text-forest-900 focus-visible:border-ochre-500 focus-visible:text-forest-900 ${
+                    active === id
+                      ? 'border-ochre-500 bg-ochre-50 font-semibold text-forest-900'
+                      : 'border-transparent text-slate-600'
+                  }`}
                 >
                   {label}
                 </a>
@@ -136,11 +212,11 @@ export default function About() {
               <p><span className="badge-pending">Proposed — pending approval by school administration</span></p>
             )}
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded bg-forest-50 p-4">
+              <div className="rounded-lg bg-forest-50 p-4">
                 <h3 className="font-serif text-lg font-semibold text-forest-900">Vision</h3>
                 <p className="mt-1">{proposedContent.vision}</p>
               </div>
-              <div className="rounded bg-forest-50 p-4">
+              <div className="rounded-lg bg-forest-50 p-4">
                 <h3 className="font-serif text-lg font-semibold text-forest-900">Mission</h3>
                 <ul className="mt-1 list-disc space-y-1 pl-5">
                   {proposedContent.mission.map((m) => <li key={m}>{m}</li>)}
@@ -150,31 +226,45 @@ export default function About() {
           </Block>
 
           <Block id="values" title="Educational Values">
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {values.map(([v, d]) => (
-                <li key={v} className="border-l-4 border-ochre-500 bg-forest-50 px-4 py-3">
-                  <p className="font-semibold text-forest-900">{v}</p>
-                  <p className="mt-0.5 text-sm text-slate-700">{d}</p>
+            <ul className="grid gap-6 pt-2 sm:grid-cols-2">
+              {values.map(([v, d], i) => (
+                <li key={v} className="sticky-note !text-lg" style={{ '--r': noteTilts[i % noteTilts.length] }}>
+                  <p className="text-xl font-bold">{v}</p>
+                  <p className="mt-1">{d}</p>
                 </li>
               ))}
             </ul>
           </Block>
 
           <Block id="principal" title="Principal's Message">
-            {school.principal.verified && school.principal.message?.trim() ? (
-              <>
-                <p className="leading-relaxed text-forest-800">{school.principal.message}</p>
-                {school.principal.name?.trim() && (
-                  <p className="mt-4 font-semibold text-forest-900">
-                    Principal / Head of Institution: {school.principal.name}
-                  </p>
+            <div className="grid items-start gap-8 pt-2 md:grid-cols-[15rem_1fr]">
+              <PrincipalPhoto name={school.principal.name} />
+              <div className="relative">
+                {hasMessage ? (
+                  <>
+                    <span
+                      aria-hidden="true"
+                      className="absolute -left-1 -top-6 select-none font-serif text-6xl leading-none text-ochre-500"
+                    >
+                      &ldquo;
+                    </span>
+                    <p className="relative whitespace-pre-line leading-relaxed text-forest-800">
+                      {school.principal.message}
+                    </p>
+                    {school.principal.name?.trim() && (
+                      <p className="mt-4 font-semibold text-forest-900">
+                        Principal / Head of Institution: {school.principal.name}
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <PendingInfo>
+                    The Principal&apos;s message will be published once an approved message is provided by the
+                    school.
+                  </PendingInfo>
                 )}
-              </>
-            ) : (
-              <PendingInfo>
-                The Principal&apos;s message will be published once an approved message is provided by the school.
-              </PendingInfo>
-            )}
+              </div>
+            </div>
           </Block>
 
           <Block id="governance" title="Governance and Managing Department">
@@ -189,7 +279,7 @@ export default function About() {
           <Block id="info" title="Institutional Information">
             <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
               {info.map(([k, v]) => (
-                <div key={k} className="border-b border-forest-100 pb-2">
+                <div key={k} className="border-b border-dashed border-forest-200 pb-2">
                   <dt className="text-xs font-semibold text-slate-500">{k}</dt>
                   <dd className="font-medium text-forest-900">{v}</dd>
                 </div>

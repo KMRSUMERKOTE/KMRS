@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import usePageTitle from '../../hooks/usePageTitle';
 import PageHeader from '../../components/common/PageHeader';
+import { Pencil } from '../../components/common/Doodles';
 import { useAuth } from '../../context/AuthContext';
 import { errorMessage } from '../../utils/api';
 import { school } from '../../config/school';
@@ -62,10 +63,15 @@ export default function Login({ role }) {
         subtitle={isAdmin ? 'For authorised school administrators only' : 'For teachers of the school'}
       />
       <div className="container-page py-10">
-        <div className="mx-auto grid max-w-3xl overflow-hidden rounded border border-forest-100 bg-white shadow-lg md:grid-cols-5">
-          {/* Side panel */}
-          <aside className="flex flex-col justify-between bg-forest-900 p-6 text-white md:col-span-2">
-            <div>
+        <div className="paper mx-auto grid max-w-3xl overflow-hidden rounded-lg border border-forest-100 shadow-lift md:grid-cols-5">
+          {/* Side panel: notebook cover */}
+          <aside className="relative flex flex-col justify-between overflow-hidden bg-forest-900 p-6 text-white md:col-span-2">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-[0.07]"
+              style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 35px, #fff 35px, #fff 36px)' }}
+            />
+            <div className="relative">
               <p className="border-l-4 border-ochre-500 pl-3 font-serif text-xl font-semibold leading-snug">
                 {school.name}
               </p>
@@ -75,14 +81,17 @@ export default function Login({ role }) {
                   : 'Update your profile, add the classes you teach and publish examination results.'}
               </p>
             </div>
-            <p className="mt-6 hidden text-xs text-forest-200 md:block">
-              Signing in is only for school staff. Visitors do not need an account.
-            </p>
+            <div className="relative mt-6">
+              <Pencil className="mb-3 hidden w-28 -rotate-6 md:block" />
+              <p className="hidden text-xs text-forest-200 md:block">
+                Signing in is only for school staff. Visitors do not need an account.
+              </p>
+            </div>
           </aside>
 
           {/* Form */}
           <div className="p-6 md:col-span-3 md:p-8">
-            <h2 className="font-serif text-2xl font-semibold text-forest-900">Sign in</h2>
+            <h2 className="section-title">Sign in</h2>
 
             <form onSubmit={submit} noValidate className="mt-5 space-y-4">
               <div>
@@ -139,7 +148,7 @@ export default function Login({ role }) {
               </button>
             </form>
 
-            <p className="mt-6 border-t border-forest-100 pt-4 text-sm text-slate-600">
+            <p className="mt-6 border-t border-dashed border-forest-200 pt-4 text-sm text-slate-600">
               {isAdmin
                 ? 'Teacher? '
                 : 'Accounts are created by the school administrator. If you have forgotten your password, please contact the administrator. Administrator? '}

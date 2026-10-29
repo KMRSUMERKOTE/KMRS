@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import usePageTitle from '../../hooks/usePageTitle';
 import PageHeader from '../../components/common/PageHeader';
+import PendingInfo from '../../components/common/PendingInfo';
+import { Reveal } from '../../components/common/Motion';
+import { Pencil } from '../../components/common/Doodles';
 import { school } from '../../config/school';
 import api, { errorMessage } from '../../utils/api';
 
@@ -19,7 +22,7 @@ function validate(f) {
 
 function InfoCard({ title, children }) {
   return (
-    <section className="card border-l-4 border-l-ochre-500 p-5">
+    <section className="card-lift paper border-l-4 border-l-ochre-500 p-5">
       <h2 className="font-serif text-lg font-semibold text-forest-900">{title}</h2>
       <div className="mt-2 space-y-1 text-slate-700">{children}</div>
     </section>
@@ -107,9 +110,7 @@ export default function Contact() {
               {hasHours && <p>Office hours: {school.officeHours.value}</p>}
             </InfoCard>
           ) : (
-            <p className="rounded border border-dashed border-ochre-400 bg-ochre-50 p-4 text-sm text-ochre-700">
-              Telephone and email details will be published after confirmation by the school.
-            </p>
+            <PendingInfo>Telephone and email details will be published after confirmation by the school.</PendingInfo>
           )}
 
           <InfoCard title="Directions">
@@ -121,7 +122,9 @@ export default function Contact() {
           </InfoCard>
         </div>
 
-        <section className="card p-6 lg:col-span-3" aria-labelledby="enquiry">
+        {/* The enquiry form sits on a ruled notebook page */}
+        <Reveal as="section" className="card ruled relative p-6 sm:pl-16 lg:col-span-3" aria-labelledby="enquiry">
+          <Pencil className="pointer-events-none absolute right-4 top-4 hidden w-24 rotate-[8deg] sm:block" />
           <h2 id="enquiry" className="section-title !text-xl">Send an Enquiry</h2>
           <p className="mt-1 text-sm text-slate-600">The school office will reply to the email address you provide.</p>
           <form onSubmit={submit} noValidate className="mt-5 space-y-4">
@@ -148,7 +151,7 @@ export default function Contact() {
                 <span>
                   {errors.message && <span id="message-err" className="text-sm text-red-700">{errors.message}</span>}
                 </span>
-                <span id="message-count" className="text-xs text-slate-500">{form.message.length} / {MAX}</span>
+                <span id="message-count" className="rounded bg-white/80 px-1 text-xs text-slate-500">{form.message.length} / {MAX}</span>
               </div>
             </div>
 
@@ -158,7 +161,7 @@ export default function Contact() {
               <input id="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} />
             </div>
 
-            <p className="text-xs text-slate-600">
+            <p className="rounded bg-white/80 text-xs text-slate-600">
               Privacy: we use your details only to reply to your enquiry. Please do not enter a student&apos;s
               personal records.
             </p>
@@ -174,7 +177,7 @@ export default function Contact() {
               {status.type === 'error' && <p className="rounded bg-red-50 p-3 text-sm font-medium text-red-800">{status.text}</p>}
             </div>
           </form>
-        </section>
+        </Reveal>
       </div>
     </>
   );

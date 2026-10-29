@@ -13,37 +13,172 @@ export const heroImage = [
 // ---------- FACILITIES ----------
 // status: 'confirmed' shows on the public site. 'pending' stays hidden.
 // photos: array of { src, alt } once approved photographs exist.
+
 export const facilities = [
-  { id: 'classrooms', title: 'Classrooms', description: '', status: 'confirmed', photos: [ {
-        src: '/images/classrooms/classroom-1.jpeg',
-        alt: 'Classroom at Kalinga Model Residential School',
-      },] },
+  {
+    id: "classrooms",
+    title: "Classrooms",
+    description:
+      "Well-organized learning spaces designed to support focused study, classroom interaction, and the overall academic development of students.",
+    status: "confirmed",
+    photos: [
+      {
+        src: "/images/classrooms/classroom-1.jpeg",
+        alt: "Classroom at Kalinga Model Residential School",
+      },
+    ],
+  },
+  {
+    id: "computer-laboratory",
+    title: "Computer Laboratory",
+    description:
+      "A computer learning facility where students can develop digital literacy, practise computer applications, and build practical information technology skills.",
+    status: "confirmed",
+    photos: [
+      {
+        src: "/images/computer lab/cslab-1.jpeg",
+        alt: "Computer laboratory at Kalinga Model Residential School",
+      },
+    ],
+  },
+  {
+    id: "sports-playground",
+    title: "Sports and Playground",
+    description:
+      "Outdoor spaces that encourage physical fitness, teamwork, discipline, and participation in sports and recreational activities.",
+    status: "confirmed",
+    photos: [
+      {
+        src: "/images/sports/sports-2.jpeg",
+        alt: "Sports and playground facilities at Kalinga Model Residential School",
+      },
+    ],
+  },
+  {
+    id: "dining-area",
+    title: "Dining Area",
+    description:
+      "A designated dining space for students to have their meals in an organized environment that supports healthy eating habits and community living.",
+    status: "confirmed",
+    photos: [
+      {
+        src: "/images/dining/dining-1.jpg",
+        alt: "Dining Area at Kalinga Model Residential School",
+      },
+    ],
+  },
+  {
+    id: "assembly-multipurpose",
+    title: "Assembly and Multipurpose Spaces",
+    description:
+      "Shared spaces for morning assemblies, cultural programmes, celebrations, school meetings, presentations, and other group activities.",
+    status: "confirmed",
+    photos: [
+       {
+        src: "/images/assembly/assembly-2.jpg",
+        alt: "Assembly and Multipurpose Spaces at Kalinga Model Residential School",
+      },
+    ],
+  },
+  {
+    id: "library",
+    title: "Library",
+    description:
+      "A learning resource space intended to encourage reading, independent learning, reference-based study, and the development of knowledge beyond textbooks.",
+    status: "pending",
+    photos: [],
+  },
+  {
+    id: "science-laboratories",
+    title: "Science Laboratories",
+    description:
+      "Laboratory learning spaces intended to help students connect scientific concepts with practical experiments, observation, and inquiry-based learning.",
+    status: "pending",
+    photos: [],
+  },
 
-  { id: 'computer-lab', title: 'Computer Laboratory', description: '', status: 'confirmed', photos: [{
-        src: '/images/computer lab/cslab-1.jpeg',
-        alt: 'Computer Lab at Kalinga Model Residential School',
-      },] },
-  { id: 'sports', title: 'Sports and Playground', description: '', status: 'confirmed', photos: [{
-        src: '/images/sports/sports-1.jpg',
-        alt: 'Sports Ground at Kalinga Model Residential School',
-      }] },
- 
-  { id: 'dining', title: 'Dining Area', description: '', status: 'confirmed', photos: [{
-        src: '/images/dining/dining-1.jpg',
-        alt: 'Dining at Kalinga Model Residential School',
-      }] },
+{
+  id: "boys-hostel",
+  title: "Boys' Hostel",
+  description:
+    "Residential accommodation for boys, providing a supervised living environment that supports students' daily routines, personal development, discipline, and overall school life.",
+  status: "confirmed",
+  photos: [
+    {
+      src: "/images/hostel/hostel-2.jpeg",
+      alt: "Boys' Hostel at Kalinga Model Residential School",
+    },
+  ],
+},
 
-  { id: 'assembly', title: 'Assembly and Multipurpose Spaces', description: '', status: 'confirmed', photos: [{
-        src: '/images/assembly/assembly-2.jpg',
-        alt: 'Assembly at Kalinga Model Residential School',
-      }] },
-  { id: 'library', title: 'Library', description: '', status: 'pending', photos: [] },
-  { id: 'science-labs', title: 'Science Laboratories', description: '', status: 'confirmed', photos: [] },
-  { id: 'hostel', title: 'Hostel Accommodation', description: '', status: 'confirmed', photos: [] },
-  { id: 'sanitation', title: 'Sanitation and Drinking Water', description: '', status: 'confirmed', photos: [] },
-  { id: 'health', title: 'Health Facilities', description: '', status: 'confirmed', photos: [] },
-  { id: 'accessibility', title: 'Accessibility Facilities', description: '', status: 'confirmed', photos: [] },
+  {
+    id: "sanitation-drinking-water",
+    title: "Sanitation and Drinking Water",
+    description:
+      "Essential campus amenities that support personal hygiene, cleanliness, and access to drinking water for students and staff.",
+    status: "confirmed",
+    photos: [
+       {
+        src: "/images/drinking water/water-1.jpeg",
+        alt: "Drnking water facilities at Kalinga Model Residential School",
+      },
+    ],
+  },
+{
+  id: "uniform-bedsheets-blankets facilities",
+  title: "Uniforms, Bedsheets and Blankets",
+  description:
+    "The school provides essential student supplies, including school uniforms, bedsheets, and blankets, to support students' comfort, personal hygiene, discipline, and daily residential life.",
+  status: "confirmed",
+  photos: [
+     {
+        src: "/images/uniform/uniform-1.jpeg",
+        alt: "Uniforms, Bedsheets and Blankets distribution at Kalinga Model Residential School",
+      },
+  ],
+},
+{
+  id: "recreational-facilities",
+  title: "Indoor Recreation and Entertainment",
+  description:
+    "A shared hostel entertainment space where students can relax, watch television together, and enjoy recreational time with their peers, fostering social interaction and a sense of community.",
+  status: "confirmed",
+  photos: [
+    {
+      src: "/images/hostel/hostel-1.jpeg",
+      alt: "Girls watching television together in the school hostel",
+    },
+  ],
+},
+  {
+    id: "vegetable-garden",
+    title: "Vegetable Garden",
+    description:
+      "A vegetable garden that can provide students with opportunities to learn about growing vegetables, caring for plants, understanding fresh produce, and practising environmentally responsible gardening.",
+    status: "confirmed",
+    photos: [
+      {
+        src: "/images/vegetable garden/garden-1.jpeg",
+        alt: "Vegetable garden at Kalinga Model Residential School",
+      },
+    ],
+  },
+
+  {
+  id: "food-storage",
+  title: "Food Storage Facility",
+  description:
+    "A designated storage area for vegetables and other food supplies used in hostel meal preparation, helping support the organized storage and management of ingredients for students' daily meals.",
+  status: "confirmed",
+  photos: [
+    {
+      src: "/images/hostel/vegetable-1.jpeg",
+      alt: "Vegetables stored in the school hostel storeroom",
+    },
+  ],
+},
 ];
+
 
 // ---------- RESIDENTIAL LIFE ----------
 // General residential-life descriptions.

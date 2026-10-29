@@ -3,6 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import TopBar from './TopBar';
 import Header from './Header';
 import Footer from './Footer';
+import PencilCursor from '../common/PencilCursor';
+import Splash from '../common/Splash';
 
 export default function Layout() {
   const { pathname, hash } = useLocation();
@@ -33,6 +35,8 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <PencilCursor />
+      <Splash />
     </div>
   );
 }

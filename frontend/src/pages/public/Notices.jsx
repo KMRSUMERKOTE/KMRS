@@ -16,16 +16,18 @@ const formatSize = (bytes) => {
 
 const isNew = (d) => d && Date.now() - new Date(d).getTime() < 14 * 24 * 60 * 60 * 1000;
 
+// Tear-off calendar leaf
 function DateBadge({ date }) {
   if (!date) return null;
   const d = new Date(date);
   return (
-    <div
-      aria-hidden="true"
-      className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded bg-forest-800 text-white"
-    >
-      <span className="font-serif text-2xl font-bold leading-none">{d.toLocaleDateString('en-IN', { day: '2-digit' })}</span>
-      <span className="mt-1 text-xs">{d.toLocaleDateString('en-IN', { month: 'short' })} {String(d.getFullYear()).slice(-2)}</span>
+    <div aria-hidden="true" className="w-16 shrink-0 overflow-hidden rounded-md border border-forest-200 bg-white text-center shadow-card">
+      <div className="bg-forest-800 py-0.5 text-xs font-semibold text-ochre-200">
+        {d.toLocaleDateString('en-IN', { month: 'short' })} {String(d.getFullYear()).slice(-2)}
+      </div>
+      <div className="py-1 font-serif text-3xl font-bold leading-none text-forest-900">
+        {d.toLocaleDateString('en-IN', { day: '2-digit' })}
+      </div>
     </div>
   );
 }
@@ -74,10 +76,10 @@ export default function Notices() {
       type="button"
       aria-pressed={category === value}
       onClick={() => setCategory(value)}
-      className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+      className={`rounded-md border-2 px-4 py-1.5 text-sm font-medium transition ${
         category === value
-          ? 'border-forest-800 bg-forest-800 text-white'
-          : 'border-forest-200 bg-white text-forest-900 hover:bg-forest-50'
+          ? 'border-forest-800 bg-forest-800 text-white shadow-[0_3px_0_#1a1640]'
+          : 'border-forest-200 bg-white text-forest-900 hover:bg-ochre-50'
       }`}
     >
       {label}
@@ -91,7 +93,7 @@ export default function Notices() {
         {/* Filters */}
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="card no-print mb-6 space-y-4 p-4"
+          className="card paper no-print mb-6 space-y-4 p-4"
           aria-label="Search and filter notices"
         >
           <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
@@ -142,7 +144,7 @@ export default function Notices() {
         )}
 
         {!loading && !error && notices.length === 0 && (
-          <p className="rounded border border-forest-100 bg-forest-50 p-4 text-slate-700">
+          <p className="rounded-lg border border-forest-100 bg-forest-50 p-4 text-slate-700">
             No notices have been published here yet. Please check the{' '}
             <a className="font-semibold underline" href={school.links.admissions} target="_blank" rel="noopener noreferrer">
               official department website
@@ -152,7 +154,7 @@ export default function Notices() {
         )}
 
         {!loading && !error && notices.length > 0 && visible.length === 0 && (
-          <p className="rounded border border-forest-100 bg-forest-50 p-4 text-slate-700">
+          <p className="rounded-lg border border-forest-100 bg-forest-50 p-4 text-slate-700">
             No notices match your search. Try clearing the filters.
           </p>
         )}
@@ -163,13 +165,13 @@ export default function Notices() {
             return (
               <li
                 key={n._id}
-                className={`card flex flex-col gap-4 p-4 transition-shadow hover:shadow-md sm:flex-row sm:items-start ${expired ? 'opacity-75' : ''}`}
+                className={`card-lift paper flex flex-col gap-4 border-l-4 border-l-ochre-500 p-4 sm:flex-row sm:items-start ${expired ? 'opacity-75' : ''}`}
               >
                 <DateBadge date={n.publishedAt} />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2 text-xs">
                     <span className="rounded bg-forest-100 px-2 py-0.5 font-semibold text-forest-800">{n.category}</span>
-                    {isNew(n.publishedAt) && <span className="rounded bg-ochre-500 px-2 py-0.5 font-bold text-forest-950">NEW</span>}
+                    {isNew(n.publishedAt) && <span className="-rotate-3 rounded-sm bg-ochre-300 px-2 py-0.5 font-hand text-sm font-bold text-forest-950 shadow-sm">NEW</span>}
                     {expired && <span className="rounded bg-slate-200 px-2 py-0.5 font-semibold text-slate-700">Expired</span>}
                     <time dateTime={n.publishedAt} className="text-slate-600">Published: {formatDate(n.publishedAt)}</time>
                     {n.expiresAt && <span className="text-slate-600">Valid till: {formatDate(n.expiresAt)}</span>}

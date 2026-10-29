@@ -4,11 +4,19 @@ import useFetch from '../../hooks/useFetch';
 import PageHeader from '../../components/common/PageHeader';
 import PendingInfo from '../../components/common/PendingInfo';
 import SafeImage from '../../components/common/SafeImage';
+import { Reveal } from '../../components/common/Motion';
 import { activityCategories } from '../../config/options';
 
 // Dates are stored as calendar dates, so format them without time-zone shifting.
 const formatDate = (d) =>
   d ? new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
+
+const tagColors = [
+  'bg-forest-100 text-forest-900',
+  'bg-ochre-100 text-ochre-700',
+  'bg-forest-50 text-forest-800 ring-1 ring-forest-200',
+  'bg-ochre-50 text-forest-900 ring-1 ring-ochre-200',
+];
 
 export default function StudentLife() {
   usePageTitle('Student Life');
@@ -28,8 +36,8 @@ export default function StudentLife() {
 
           {activities.length === 0 ? (
             <ul className="mt-4 flex flex-wrap gap-2">
-              {activityCategories.map((c) => (
-                <li key={c} className="rounded-full border border-forest-200 bg-white px-4 py-1.5 text-sm font-medium text-forest-900">
+              {activityCategories.map((c, i) => (
+                <li key={c} className={`rounded-md px-4 py-1.5 text-sm font-medium ${tagColors[i % tagColors.length]}`}>
                   {c}
                 </li>
               ))}
@@ -42,10 +50,10 @@ export default function StudentLife() {
                   type="button"
                   aria-pressed={category === c}
                   onClick={() => setCategory(c)}
-                  className={`flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 rounded-md border-2 px-4 py-1.5 text-sm font-medium transition ${
                     category === c
-                      ? 'border-forest-800 bg-forest-800 text-white'
-                      : 'border-forest-200 bg-white text-forest-900 hover:bg-forest-50'
+                      ? 'border-forest-800 bg-forest-800 text-white shadow-[0_3px_0_#1a1640]'
+                      : 'border-forest-200 bg-white text-forest-900 hover:bg-ochre-50'
                   }`}
                 >
                   {c}
@@ -84,34 +92,36 @@ export default function StudentLife() {
               Showing {visible.length} {visible.length === 1 ? 'activity' : 'activities'}
             </p>
             <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {visible.map((a) => (
-                <li key={a._id} className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-lg">
-                  {a.photoUrl && (
-                    <div className="overflow-hidden">
-                      <div className="transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none">
-                        <SafeImage src={a.photoUrl} alt={a.photoAlt} />
+              {visible.map((a, i) => (
+                <Reveal as="li" key={a._id} delay={(i % 3) * 80}>
+                  <div className="card-lift paper group flex h-full flex-col overflow-hidden">
+                    {a.photoUrl && (
+                      <div className="overflow-hidden">
+                        <div className="transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none">
+                          <SafeImage src={a.photoUrl} alt={a.photoAlt} />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  <div className="flex flex-1 flex-col p-5">
-                    <p className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="rounded bg-ochre-100 px-2 py-0.5 font-semibold text-ochre-800">{a.category}</span>
-                      {a.date && <time dateTime={a.date} className="text-slate-600">{formatDate(a.date)}</time>}
-                    </p>
-                    <h3 className="mt-2 font-serif text-lg font-semibold text-forest-900">{a.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-700">{a.description}</p>
-                    {a.link && (
-                      <a
-                        href={a.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-auto inline-block pt-3 text-sm font-semibold underline"
-                      >
-                        More information
-                      </a>
                     )}
+                    <div className="flex flex-1 flex-col border-t-4 border-t-ochre-500 p-5">
+                      <p className="flex flex-wrap items-center gap-2 text-xs">
+                        <span className="rounded bg-ochre-100 px-2 py-0.5 font-semibold text-ochre-800">{a.category}</span>
+                        {a.date && <time dateTime={a.date} className="text-slate-600">{formatDate(a.date)}</time>}
+                      </p>
+                      <h3 className="mt-2 font-serif text-lg font-semibold text-forest-900">{a.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-700">{a.description}</p>
+                      {a.link && (
+                        <a
+                          href={a.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-auto inline-block pt-3 text-sm font-semibold underline"
+                        >
+                          More information
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </li>
+                </Reveal>
               ))}
             </ul>
           </>
