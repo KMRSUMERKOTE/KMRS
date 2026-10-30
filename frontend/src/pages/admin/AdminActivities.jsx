@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import { activityCategories } from '../../config/options';
 import SafeImage from '../../components/common/SafeImage';
 import StatusMessage from '../../components/common/StatusMessage';
@@ -113,9 +115,13 @@ export default function AdminActivities() {
 
     setSaving(true);
     try {
+      const wasEditing = Boolean(editing);
       if (editing) await api.put(`/activities/${editing._id}`, fd);
       else await api.post('/activities', fd);
-      setStatus({ type: 'ok', text: editing ? 'The activity has been updated.' : 'The activity has been published.' });
+      notifySuccess(
+        wasEditing ? 'The activity has been updated.' : 'The activity is now live on the Student Life page.',
+        wasEditing ? 'Activity updated' : 'Activity published'
+      );
       reset();
       reload();
     } catch (err) {
@@ -126,11 +132,17 @@ export default function AdminActivities() {
   };
 
   const remove = async (a) => {
-    if (!window.confirm(`Delete the activity "${a.title}"? It will be removed from the public Student Life page.`)) return;
+    const ok = await confirmNote({
+      title: 'Delete this activity?',
+      message: `"${a.title}" will be removed from the public Student Life page.`,
+      confirmLabel: 'Yes, delete it',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/activities/${a._id}`);
       if (editing?._id === a._id) reset();
-      setStatus({ type: 'ok', text: 'The activity has been deleted.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The activity has been removed from the Student Life page.', 'Activity deleted');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });

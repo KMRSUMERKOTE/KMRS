@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
 
 export default function TeacherClasses() {
   const me = useFetch('/teachers/me');
@@ -60,7 +61,7 @@ export default function TeacherClasses() {
     try {
       await api.put('/teachers/me/classes', { assignments });
       setDirty(false);
-      setStatus({ type: 'ok', text: 'Your classes and subjects have been saved.' });
+      notifySuccess('Your classes and subjects have been saved.', 'Classes saved');
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
     } finally {
@@ -167,9 +168,6 @@ export default function TeacherClasses() {
           {dirty && <span className="text-sm font-medium text-ochre-700">You have unsaved changes.</span>}
         </div>
 
-        <div role="status" aria-live="polite" className="mt-3">
-          {status.type === 'ok' && <p className="rounded bg-forest-50 p-3 text-sm font-medium text-forest-800">{status.text}</p>}
-        </div>
         <div role="alert" className="mt-3">
           {status.type === 'error' && <p className="rounded bg-red-50 p-3 text-sm font-medium text-red-800">{status.text}</p>}
         </div>

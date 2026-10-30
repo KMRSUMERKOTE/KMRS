@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { school } from '../../config/school';
 
-const linkClass = 'footer-link';
+// Highlighter-pen swipe on hover/focus (defined in index.css), same feel as the nav links.
+const linkClass = 'marker-link';
 
 function Column({ title, children }) {
   return (
@@ -107,7 +108,7 @@ export default function Footer() {
           <button
             type="button"
             onClick={backToTop}
-            className="btn shrink-0 self-start border border-forest-200/50 text-forest-100 hover:bg-white/10 sm:self-auto"
+            className="btn shrink-0 self-start border border-forest-200/50 text-forest-100 hover:border-ochre-500 hover:bg-ochre-500 hover:text-forest-950 sm:self-auto"
           >
             Back to top ↑
           </button>

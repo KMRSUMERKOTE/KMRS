@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -6,17 +7,32 @@ export default function DashboardShell({ title, links }) {
   const { user, logout } = useAuth();
   const initial = (user?.name || '?').trim().charAt(0).toUpperCase();
 
+  // profilePic is a URL string (accepts { url } too, just in case).
+  const pic = typeof user?.profilePic === 'string' ? user.profilePic : user?.profilePic?.url || '';
+  const [brokenPic, setBrokenPic] = useState('');
+  const showPic = Boolean(pic) && brokenPic !== pic;
+
   return (
     <div>
       <div className="border-b border-forest-100 bg-gradient-to-br from-forest-900 to-forest-800 text-white">
         <div className="container-page flex flex-wrap items-center justify-between gap-4 py-5">
           <div className="flex items-center gap-4">
-            <span
-              aria-hidden="true"
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ochre-500 font-serif text-xl font-bold text-forest-950"
-            >
-              {initial}
-            </span>
+            {showPic ? (
+              <img
+                src={pic}
+                alt=""
+                aria-hidden="true"
+                onError={() => setBrokenPic(pic)}
+                className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-ochre-500"
+              />
+            ) : (
+              <span
+                aria-hidden="true"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ochre-500 font-serif text-xl font-bold text-forest-950"
+              >
+                {initial}
+              </span>
+            )}
             <div>
               <h1 className="font-serif text-2xl font-semibold !text-white">{title}</h1>
               <p className="text-sm text-forest-200">Signed in as {user?.name}</p>

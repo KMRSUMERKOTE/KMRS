@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import StatusMessage from '../../components/common/StatusMessage';
 
 const PRESETS = {
@@ -217,8 +219,14 @@ export default function AdminAcademics() {
     });
     touch();
   };
-  const removeClass = (i) => {
-    if (!window.confirm(`Remove ${classes[i].className || 'this class'}? Existing teacher entries and published results are not changed.`)) return;
+  const removeClass = async (i) => {
+    const name = classes[i].className || 'this class';
+    const ok = await confirmNote({
+      title: `Remove ${name}?`,
+      message: 'Existing teacher entries and published results are not changed.',
+      confirmLabel: 'Yes, remove class',
+    });
+    if (!ok) return;
     setClasses((l) => l.filter((_, k) => k !== i));
     touch();
   };
@@ -245,7 +253,10 @@ export default function AdminAcademics() {
       await api.put('/academics', { classes: clean });
       setClasses(clean);
       setDirty(false);
-      setStatus({ type: 'ok', text: 'Academic settings saved. The public Academics and Results pages and the teacher forms now use them.' });
+      notifySuccess(
+        'Academic settings saved. The public Academics and Results pages and the teacher forms now use them.',
+        'Settings saved'
+      );
     } catch (err) {
       fail(errorMessage(err));
     } finally {

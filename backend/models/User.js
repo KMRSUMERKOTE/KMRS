@@ -10,6 +10,15 @@ const schema = new mongoose.Schema(
     active: { type: Boolean, default: true },
 
     // Teacher profile (private: only the teacher and admins can see these)
+    profilePic: {
+      _id: false,
+      url: { type: String, trim: true },
+      publicId: { type: String, trim: true },
+    },
+    staffType: { type: String, enum: ['teaching', 'non-teaching'] },
+    designation: { type: String, trim: true, maxlength: 60 },
+    designationOther: { type: String, trim: true, maxlength: 60 },
+    qualifications: [{ type: String, maxlength: 20 }],
     age: Number,
     gender: { type: String, enum: ['Male', 'Female', 'Other'] },
     phone: { type: String, trim: true, maxlength: 20 },

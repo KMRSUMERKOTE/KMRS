@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import StatusMessage from '../../components/common/StatusMessage';
 
 const formatDateTime = (d) =>
@@ -18,6 +20,8 @@ export default function AdminEnquiries() {
   const markRead = async (q) => {
     try {
       await api.put(`/contact/${q._id}/read`);
+      setStatus({ type: '', text: '' });
+      notifySuccess(`The enquiry from ${q.name} is marked as read.`, 'Marked as read');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
@@ -25,10 +29,16 @@ export default function AdminEnquiries() {
   };
 
   const remove = async (q) => {
-    if (!window.confirm(`Delete the enquiry from ${q.name}? This cannot be undone.`)) return;
+    const ok = await confirmNote({
+      title: 'Delete this enquiry?',
+      message: `The enquiry from ${q.name} will be deleted. This cannot be undone.`,
+      confirmLabel: 'Yes, delete it',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/contact/${q._id}`);
-      setStatus({ type: 'ok', text: 'The enquiry has been deleted.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The enquiry has been deleted.', 'Enquiry deleted');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });

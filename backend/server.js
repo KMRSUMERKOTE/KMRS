@@ -20,6 +20,7 @@ import disclosureRoutes from './routes/disclosures.js';
 import activityRoutes from './routes/activities.js';
 import contactRoutes from './routes/contact.js';
 import adminRoutes from './routes/admin.js';
+import staffRoutes from './routes/staff.js';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -74,6 +75,7 @@ app.use('/api/disclosures', disclosureRoutes);
 app.use('/api/activities', activityRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/staff', staffRoutes);
 
 app.use('/api', notFound);
 

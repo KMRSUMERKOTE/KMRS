@@ -1,10 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
+
+import ConfirmHost from './components/common/ConfirmHost';
 
 // Public pages
 import Home from './pages/public/Home';
 import About from './pages/public/About';
+import Staff from './pages/public/Staff';
 import Academics from './pages/public/Academics';
 import Admissions from './pages/public/Admissions';
 import ResidentialLife from './pages/public/ResidentialLife';
@@ -41,53 +46,67 @@ import AdminEnquiries from './pages/admin/AdminEnquiries';
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        {/* Public: no login needed */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/academics" element={<Academics />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/admissions" element={<Admissions />} />
-        <Route path="/residential-life" element={<ResidentialLife />} />
-        <Route path="/facilities" element={<Facilities />} />
-        <Route path="/student-life" element={<StudentLife />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/notices" element={<Notices />} />
-        <Route path="/public-disclosure" element={<PublicDisclosure />} />
-        <Route path="/contact" element={<Contact />} />
+    <>
+      <Routes>
+        <Route element={<Layout />}>
+          {/* Public: no login needed */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/staff" element={<Staff />} />
+          <Route path="/academics" element={<Academics />} />
+          <Route path="/results" element={<Results />} />
+          <Route path="/admissions" element={<Admissions />} />
+          <Route path="/residential-life" element={<ResidentialLife />} />
+          <Route path="/facilities" element={<Facilities />} />
+          <Route path="/student-life" element={<StudentLife />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/notices" element={<Notices />} />
+          <Route path="/public-disclosure" element={<PublicDisclosure />} />
+          <Route path="/contact" element={<Contact />} />
 
-        {/* Login pages */}
-        <Route path="/login" element={<Login role="teacher" />} />
-        <Route path="/admin/login" element={<Login role="admin" />} />
+          {/* Login pages */}
+          <Route path="/login" element={<Login role="teacher" />} />
+          <Route path="/admin/login" element={<Login role="admin" />} />
 
-        {/* Teacher area */}
-        <Route element={<ProtectedRoute role="teacher" />}>
-          <Route path="/teacher" element={<TeacherLayout />}>
-            <Route index element={<TeacherDashboard />} />
-            <Route path="profile" element={<TeacherProfile />} />
-            <Route path="classes" element={<TeacherClasses />} />
-            <Route path="results" element={<TeacherResults />} />
+          {/* Teacher area */}
+          <Route element={<ProtectedRoute role="teacher" />}>
+            <Route path="/teacher" element={<TeacherLayout />}>
+              <Route index element={<TeacherDashboard />} />
+              <Route path="profile" element={<TeacherProfile />} />
+              <Route path="classes" element={<TeacherClasses />} />
+              <Route path="results" element={<TeacherResults />} />
+            </Route>
           </Route>
-        </Route>
 
-        {/* Admin area */}
-        <Route element={<ProtectedRoute role="admin" />}>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="teachers" element={<AdminTeachers />} />
-            <Route path="academics" element={<AdminAcademics />} />
-            <Route path="results" element={<AdminResults />} />
-            <Route path="gallery" element={<AdminGallery />} />
-            <Route path="activities" element={<AdminActivities />} />
-            <Route path="notices" element={<AdminNotices />} />
-            <Route path="disclosures" element={<AdminDisclosures />} />
-            <Route path="enquiries" element={<AdminEnquiries />} />
+          {/* Admin area */}
+          <Route element={<ProtectedRoute role="admin" />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="teachers" element={<AdminTeachers />} />
+              <Route path="academics" element={<AdminAcademics />} />
+              <Route path="results" element={<AdminResults />} />
+              <Route path="gallery" element={<AdminGallery />} />
+              <Route path="activities" element={<AdminActivities />} />
+              <Route path="notices" element={<AdminNotices />} />
+              <Route path="disclosures" element={<AdminDisclosures />} />
+              <Route path="enquiries" element={<AdminEnquiries />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+
+      {/* Sticky-note success messages (see utils/notify.jsx) */}
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        newestOnTop
+        pauseOnHover
+        closeButton
+        limit={3}
+      />
+      <ConfirmHost />
+    </>
   );
 }

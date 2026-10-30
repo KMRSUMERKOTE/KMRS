@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+import { confirmNote } from '../../utils/confirmNote';
 
 const GALLERY_TARGET = 30;
 

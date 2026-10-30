@@ -1,6 +1,8 @@
 import { Fragment, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import StatusMessage from '../../components/common/StatusMessage';
 
 // Readable temporary password: no look-alike characters (0/O, 1/l/I).
@@ -30,7 +32,8 @@ function Details({ t, setStatus }) {
     try {
       await api.put(`/teachers/${t._id}/password`, { newPassword: pw });
       setPw('');
-      setStatus({ type: 'ok', text: `Password reset for ${t.name}. Share it with them privately.` });
+      setStatus({ type: '', text: '' });
+      notifySuccess(`Password reset for ${t.name}. Share it with them privately.`, 'Password reset');
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
     } finally {
@@ -116,9 +119,13 @@ export default function AdminTeachers() {
 
     setSaving(true);
     try {
-      await api.post('/teachers', { name: form.name.trim(), email: form.email.trim(), password: form.password });
+      const name = form.name.trim();
+      await api.post('/teachers', { name, email: form.email.trim(), password: form.password });
       setForm({ name: '', email: '', password: '' });
-      setStatus({ type: 'ok', text: `Account created for ${form.name.trim()}. Share the temporary password privately; they can change it after login.` });
+      notifySuccess(
+        `Account created for ${name}. Share the temporary password privately; they can change it after login.`,
+        'Teacher added'
+      );
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
@@ -130,7 +137,11 @@ export default function AdminTeachers() {
   const toggleActive = async (t) => {
     try {
       await api.put(`/teachers/${t._id}`, { active: !t.active });
-      setStatus({ type: 'ok', text: `${t.name} has been ${t.active ? 'disabled' : 'enabled'}.` });
+      setStatus({ type: '', text: '' });
+      notifySuccess(
+        `${t.name} has been ${t.active ? 'disabled' : 'enabled'}.`,
+        t.active ? 'Account disabled' : 'Account enabled'
+      );
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
@@ -138,10 +149,16 @@ export default function AdminTeachers() {
   };
 
   const remove = async (t) => {
-    if (!window.confirm(`Delete the account of ${t.name}? Results they uploaded will stay published.`)) return;
+    const ok = await confirmNote({
+      title: `Delete ${t.name}'s account?`,
+      message: 'Results they uploaded will stay published.',
+      confirmLabel: 'Yes, delete account',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/teachers/${t._id}`);
-      setStatus({ type: 'ok', text: `${t.name} has been deleted.` });
+      setStatus({ type: '', text: '' });
+      notifySuccess(`${t.name}'s account has been deleted.`, 'Teacher deleted');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });

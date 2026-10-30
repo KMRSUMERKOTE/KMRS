@@ -33,14 +33,16 @@ export const school = {
 
   // CBSE record and a third-party directory disagree on the principal.
   // Show nothing until the school confirms. Set name + verified: true when ready.
-principal: {
-  name: 'Asit Kumar Mahanty',
-  photo: '/images/principal-image.jpeg',
-  message:
-    'We are committed to providing quality education in a supportive environment that encourages academic excellence, discipline, and the all-round development of every student. Our aim is to nurture responsible, confident, and compassionate individuals prepared to contribute positively to society.\n\n' +
-    'We believe every child has the potential to grow, and it is our responsibility to help them discover it. Through dedicated teaching, guidance, and a culture of mutual respect, we encourage our students to stay curious, work hard, and take pride in their achievements. We also value the support of parents and the community, whose trust and partnership are essential to every student\u2019s journey.',
-  verified: true,
-},
+  principal: {
+    name: 'Asit Kumar Mahanty',
+    photo: '/images/principal-image.jpeg',
+    qualifications: 'MSc, BEd',
+    experience: '10',
+    message:
+      'We are committed to providing quality education in a supportive environment that encourages academic excellence, discipline, and the all-round development of every student. Our aim is to nurture responsible, confident, and compassionate individuals prepared to contribute positively to society.\n\n' +
+      'We believe every child has the potential to grow, and it is our responsibility to help them discover it. Through dedicated teaching, guidance, and a culture of mutual respect, we encourage our students to stay curious, work hard, and take pride in their achievements. We also value the support of parents and the community, whose trust and partnership are essential to every student\u2019s journey.',
+    verified: true,
+  },
 
   links: {
     cbseRecord: 'https://saras.cbse.gov.in/saras/AffiliatedList/AfflicationDetails/1520301',
@@ -64,7 +66,14 @@ export const glance = [
 // Navigation. Items with `children` render as dropdowns.
 export const navigation = [
   { label: 'Home', to: '/' },
-  { label: 'About Us', to: '/about' },
+  {
+    label: 'About Us',
+    to: '/about',
+    children: [
+      { label: 'About Us', to: '/about' },
+      { label: 'Our Staff', to: '/staff' },
+    ],
+  },
   {
     label: 'Academics',
     to: '/academics',

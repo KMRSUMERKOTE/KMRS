@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import { disclosureSections } from '../../config/options';
 import { academicYearOptions } from '../../utils/academicYears';
 import StatusMessage from '../../components/common/StatusMessage';
@@ -70,7 +72,10 @@ export default function AdminDisclosures() {
       setForm({ ...blank, section: form.section, docType: form.docType });
       setFile(null);
       setFileKey((k) => k + 1);
-      setStatus({ type: 'ok', text: 'The document has been added to the Mandatory Public Disclosure page.' });
+      notifySuccess(
+        'The document has been added to the Mandatory Public Disclosure page.',
+        'Document added'
+      );
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err, 'Could not add the document.') });
@@ -80,10 +85,16 @@ export default function AdminDisclosures() {
   };
 
   const remove = async (i) => {
-    if (!window.confirm(`Remove "${i.title}" from the public disclosure page?`)) return;
+    const ok = await confirmNote({
+      title: 'Remove this document?',
+      message: `"${i.title}" will be removed from the public disclosure page.`,
+      confirmLabel: 'Yes, remove it',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/disclosures/${i._id}`);
-      setStatus({ type: 'ok', text: 'The document has been removed.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The document has been removed from the disclosure page.', 'Document removed');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });

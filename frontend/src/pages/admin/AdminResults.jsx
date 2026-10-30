@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import StatusMessage from '../../components/common/StatusMessage';
 
 const formatDate = (d) =>
@@ -29,10 +31,16 @@ export default function AdminResults() {
   }, [results, search, className]);
 
   const remove = async (r) => {
-    if (!window.confirm(`Delete "${r.title}"? It will be removed from the public Results page.`)) return;
+    const ok = await confirmNote({
+      title: 'Delete this result?',
+      message: `"${r.title}" will be removed from the public Results page.`,
+      confirmLabel: 'Yes, delete it',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/results/${r._id}`);
-      setStatus({ type: 'ok', text: 'The result has been deleted.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The result has been removed from the public Results page.', 'Result deleted');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });

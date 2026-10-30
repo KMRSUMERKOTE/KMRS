@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import { noticeCategories } from '../../config/options';
 import { academicYearOptions } from '../../utils/academicYears';
 import StatusMessage from '../../components/common/StatusMessage';
@@ -55,7 +57,7 @@ export default function AdminNotices() {
       setForm({ ...blank, publishedAt: today() });
       setFile(null);
       setFileKey((k) => k + 1);
-      setStatus({ type: 'ok', text: 'The notice has been published.' });
+      notifySuccess('The notice is now live on the public website.', 'Notice published');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err, 'Could not publish the notice.') });
@@ -65,10 +67,16 @@ export default function AdminNotices() {
   };
 
   const remove = async (n) => {
-    if (!window.confirm(`Delete the notice "${n.title}"?`)) return;
+    const ok = await confirmNote({
+      title: 'Delete this notice?',
+      message: `"${n.title}" will be removed from the website.`,
+      confirmLabel: 'Yes, delete it',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/notices/${n._id}`);
-      setStatus({ type: 'ok', text: 'The notice has been deleted.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The notice has been removed from the website.', 'Notice deleted');
       reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });

@@ -19,7 +19,13 @@ const loginLimiter = rateLimit({
   message: { message: 'Too many login attempts. Please try again in 15 minutes.' },
 });
 
-const publicUser = (u) => ({ _id: u._id, name: u.name, email: u.email, role: u.role });
+const publicUser = (u) => ({
+  _id: u._id,
+  name: u.name,
+  email: u.email,
+  role: u.role,
+  profilePic: u.profilePic?.url || '',
+});
 
 router.post(
   '/login',

@@ -121,3 +121,114 @@
 .splash-name { animation: splash-rise 0.5s ease-out 0.25s both; }
 .splash-line { animation: splash-draw 0.8s ease-in-out 0.6s both; }
 .splash-pencil { position: absolute; top: 50%; left: 0; animation: splash-pencil 0.8s ease-in-out 0.6s both; }
+
+
+/* ---------- Success toast: sticky note on the school notice board ---------- */
+.Toastify__toast.school-toast {
+  position: relative;
+  margin-top: 14px;
+  padding: 18px 14px 14px 14px;
+  min-height: 0;
+  color: #2d2768;
+  background: linear-gradient(160deg, #faf0cd, #f4e09a);
+  border-radius: 2px;
+  box-shadow: 0 12px 18px -10px rgba(45, 39, 104, 0.45);
+  transform: rotate(1.5deg);
+  overflow: visible;
+}
+/* strip of tape */
+.Toastify__toast.school-toast::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: 50%;
+  width: 70px; height: 20px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+.school-toast .Toastify__toast-body { padding: 0; margin: 0; align-items: center; }
+.school-toast .Toastify__toast-icon { width: 40px; margin-right: 12px; }
+
+/* tick stamp */
+.school-stamp {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 9999px;
+  background: #2d2768;
+  color: #faf0cd;
+  font-size: 1.1rem; font-weight: 700;
+  border: 2px dashed #c99a14;
+  transform: rotate(-8deg);
+}
+
+.school-note-title {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.school-note-text {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: #3d348b;
+}
+
+.school-toast .Toastify__close-button { color: #2d2768; opacity: 0.55; align-self: flex-start; }
+.school-toast .Toastify__close-button:hover { opacity: 1; }
+
+/* gold "pencil line" countdown */
+.Toastify__toast.school-toast .school-toast-progress {
+  background: #c99a14;
+  height: 4px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Toastify__toast.school-toast { transform: none; }
+}
+
+/* ---------- Confirm popup: sticky note on the notice board ---------- */
+.confirm-backdrop {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  background: rgba(26, 22, 64, 0.55);
+  animation: confirm-fade 0.15s ease-out both;
+}
+.confirm-note {
+  position: relative;
+  width: 100%; max-width: 24rem;
+  padding: 2rem 1.5rem 1.25rem;
+  color: #2d2768;
+  background: linear-gradient(160deg, #faf0cd, #f4e09a);
+  border-radius: 2px;
+  box-shadow: 0 24px 40px -12px rgba(0, 0, 0, 0.5);
+  transform: rotate(-1.5deg);
+  animation: confirm-pop 0.22s ease-out both;
+}
+.confirm-note::before {
+  content: '';
+  position: absolute;
+  top: -11px; left: 50%;
+  width: 80px; height: 22px;
+  transform: translateX(-50%) rotate(2deg);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+.confirm-title {
+  font-family: 'Caveat', cursive;
+  font-size: 1.9rem; font-weight: 700; line-height: 1.1;
+  color: #2d2768;
+}
+.confirm-text { margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.45; color: #3d348b; }
+.confirm-actions { margin-top: 1.25rem; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
+
+@keyframes confirm-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes confirm-pop {
+  from { opacity: 0; transform: scale(0.92) rotate(-5deg); }
+  to { opacity: 1; transform: scale(1) rotate(-1.5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confirm-note { transform: none; animation: none; }
+}

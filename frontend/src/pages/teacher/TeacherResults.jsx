@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import { academicYearOptions } from '../../utils/academicYears';
 
 const MAX_MB = 5; // keep in sync with the backend upload limit
@@ -89,7 +91,7 @@ export default function TeacherResults() {
       setFile(null);
       setFileKey((k) => k + 1);
       setForm((f) => ({ ...f, title: '' }));
-      setStatus({ type: 'ok', text: 'The result has been uploaded and is now visible on the public Results page.' });
+      notifySuccess('The result is now visible on the public Results page.', 'Result posted');
       mine.reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err, 'Upload failed. Nothing was published.') });
@@ -99,10 +101,17 @@ export default function TeacherResults() {
   };
 
   const remove = async (r) => {
-    if (!window.confirm(`Delete "${r.title}"? It will be removed from the public Results page.`)) return;
+    const ok = await confirmNote({
+      title: 'Delete this result?',
+      message: `"${r.title}" will be removed from the public Results page.`,
+      confirmLabel: 'Yes, delete it',
+      cancelLabel: 'No, keep it',
+    });
+    if (!ok) return;
     try {
       await api.delete(`/results/${r._id}`);
-      setStatus({ type: 'ok', text: 'The result has been deleted.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The result has been removed from the public Results page.', 'Result deleted');
       mine.reload();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
@@ -202,9 +211,6 @@ export default function TeacherResults() {
           </form>
         )}
 
-        <div role="status" aria-live="polite" className="mt-3">
-          {status.type === 'ok' && <p className="rounded bg-forest-50 p-3 text-sm font-medium text-forest-800">{status.text}</p>}
-        </div>
         <div role="alert" className="mt-3">
           {status.type === 'error' && <p className="rounded bg-red-50 p-3 text-sm font-medium text-red-800">{status.text}</p>}
         </div>

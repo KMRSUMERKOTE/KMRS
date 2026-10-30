@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import api, { errorMessage } from '../../utils/api';
+import { notifySuccess } from '../../utils/notify';
+import { confirmNote } from '../../utils/confirmNote';
 import { galleryCategories } from '../../config/options';
 import SafeImage from '../../components/common/SafeImage';
 import StatusMessage from '../../components/common/StatusMessage';
@@ -21,7 +23,8 @@ function PhotoCard({ photo, onChanged, setStatus }) {
     setBusy(true);
     try {
       await api.put(`/gallery/${photo._id}`, { caption: caption.trim(), alt: alt.trim(), category });
-      setStatus({ type: 'ok', text: 'Photo details saved.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The photograph details have been saved.', 'Photo updated');
       onChanged();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
@@ -31,11 +34,17 @@ function PhotoCard({ photo, onChanged, setStatus }) {
   };
 
   const remove = async () => {
-    if (!window.confirm('Delete this photograph from the website?')) return;
+    const ok = await confirmNote({
+      title: 'Delete this photograph?',
+      message: 'It will be removed from the website.',
+      confirmLabel: 'Yes, delete it',
+    });
+    if (!ok) return;
     setBusy(true);
     try {
       await api.delete(`/gallery/${photo._id}`);
-      setStatus({ type: 'ok', text: 'Photograph deleted.' });
+      setStatus({ type: '', text: '' });
+      notifySuccess('The photograph has been removed from the gallery.', 'Photo deleted');
       onChanged();
     } catch (err) {
       setStatus({ type: 'error', text: errorMessage(err) });
@@ -140,11 +149,14 @@ export default function AdminGallery() {
     setProblems(failed);
     setFiles([]);
     setFileKey((k) => k + 1);
-    setStatus(
-      ok > 0
-        ? { type: 'ok', text: `${ok} photograph${ok === 1 ? '' : 's'} uploaded. Add a caption and alt text for each below.` }
-        : { type: 'error', text: 'No photographs were uploaded.' }
-    );
+    if (ok > 0) {
+      notifySuccess(
+        `${ok} photograph${ok === 1 ? '' : 's'} uploaded. Add a caption and alt text for each below.`,
+        'Upload complete'
+      );
+    } else {
+      setStatus({ type: 'error', text: 'No photographs were uploaded.' });
+    }
     reload();
   };
 
