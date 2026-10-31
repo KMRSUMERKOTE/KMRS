@@ -41,7 +41,7 @@ export default function PublicDisclosure() {
     ['School code', 17471],
     ['Complete postal address', school.address.full],
     ["Principal's name", school.principal.verified ? school.principal.name : null],
-    ["Principal's qualification", null],
+    ["Principal's qualification", school.principal.verified ? school.principal.qualifications : null],
     ['Official email', school.email.verified ? school.email.value : null],
     ['Official contact number', school.phone.verified ? school.phone.value : null],
     ['Website address', null],

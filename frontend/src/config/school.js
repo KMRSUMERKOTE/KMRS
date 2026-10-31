@@ -26,13 +26,12 @@ export const school = {
     'https://www.google.com/maps/search/?api=1&query=' +
     encodeURIComponent('Kalinga Model Residential School, Umerkote, Nabarangpur, Odisha 764073'),
 
-  // Found in a third-party directory only. Set verified: true once the school confirms.
-  phone: { value: '06858-222119', verified: false },
-  email: { value: 'kmrsnbr@gmail.com', verified: false },
-  officeHours: { value: '', verified: false },
+  // Official contact details confirmed by the school.
+  phone: { value: '+91 6370472684', verified: true },
+  email: { value: '17471@cbseshiksha.in', verified: true },
+  officeHours: { value: '10am-4pm (Mon-Fri), 6:30am-12:30pm(Sat)', verified: true },
 
-  // CBSE record and a third-party directory disagree on the principal.
-  // Show nothing until the school confirms. Set name + verified: true when ready.
+  // Principal details confirmed by the school.
   principal: {
     name: 'Asit Kumar Mahanty',
     photo: '/images/principal-image.jpeg',
