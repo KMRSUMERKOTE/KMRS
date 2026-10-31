@@ -8,7 +8,9 @@ export const tokenStore = {
   clear: () => localStorage.removeItem(TOKEN_KEY),
 };
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || '/api'
+});
 
 // Attach JWT to every request when logged in.
 api.interceptors.request.use((config) => {
