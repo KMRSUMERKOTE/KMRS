@@ -167,7 +167,7 @@ export default function Results() {
         {tab === 'marks' && (
           <div role="tabpanel" id="panel-marks" aria-labelledby="tab-marks">
             <p className="mb-4 text-sm text-slate-600">
-              Overall marks of each student for an examination, published by the school administration.
+              Class-wise marks lists for each examination, published by the school administration.
             </p>
             <MarksLists classFilter={className} examFilter={exam} yearFilter={academicYear} />
           </div>
