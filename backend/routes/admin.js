@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import User from '../models/User.js';
 import Result from '../models/Result.js';
+import ClassResult from '../models/ClassResult.js';
 import Photo from '../models/Photo.js';
 import Notice from '../models/Notice.js';
 import Disclosure from '../models/Disclosure.js';
@@ -15,16 +16,18 @@ router.get(
   authenticate,
   requireRole('admin'),
   asyncHandler(async (req, res) => {
-    const [teachers, results, photos, notices, disclosures, enquiries, unreadEnquiries] = await Promise.all([
-      User.countDocuments({ role: 'teacher' }),
-      Result.countDocuments(),
-      Photo.countDocuments(),
-      Notice.countDocuments(),
-      Disclosure.countDocuments(),
-      Enquiry.countDocuments(),
-      Enquiry.countDocuments({ read: false }),
-    ]);
-    res.json({ teachers, results, photos, notices, disclosures, enquiries, unreadEnquiries });
+    const [teachers, results, classResults, photos, notices, disclosures, enquiries, unreadEnquiries] =
+      await Promise.all([
+        User.countDocuments({ role: 'teacher' }),
+        Result.countDocuments(),
+        ClassResult.countDocuments(),
+        Photo.countDocuments(),
+        Notice.countDocuments(),
+        Disclosure.countDocuments(),
+        Enquiry.countDocuments(),
+        Enquiry.countDocuments({ read: false }),
+      ]);
+    res.json({ teachers, results, classResults, photos, notices, disclosures, enquiries, unreadEnquiries });
   })
 );
 

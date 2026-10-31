@@ -6,6 +6,7 @@ const links = [
   { to: '/admin/teachers', label: 'Teachers' },
   { to: '/admin/academics', label: 'Exam Pattern & Subjects' },
   { to: '/admin/results', label: 'Results' },
+  { to: '/admin/marks-lists', label: 'Marks Lists' },
   { to: '/admin/gallery', label: 'Photo Gallery' },
   { to: '/admin/activities', label: 'Student Activities' },
   { to: '/admin/notices', label: 'Notices' },

@@ -16,6 +16,7 @@ export default function AdminDashboard() {
   const cards = [
     { label: 'Teachers', value: data.teachers, to: '/admin/teachers' },
     { label: 'Published results', value: data.results, to: '/admin/results' },
+    { label: 'Marks lists', value: data.classResults ?? 0, to: '/admin/marks-lists' },
     { label: 'Gallery photos', value: data.photos, to: '/admin/gallery', progress: galleryPct, note: `Target: about ${GALLERY_TARGET}` },
     { label: 'Notices', value: data.notices, to: '/admin/notices' },
     { label: 'Disclosure documents', value: data.disclosures, to: '/admin/disclosures' },
@@ -24,6 +25,7 @@ export default function AdminDashboard() {
 
   const quick = [
     { to: '/admin/notices', label: 'Publish a notice' },
+    { to: '/admin/marks-lists', label: 'Publish a marks list' },
     { to: '/admin/gallery', label: 'Upload photographs' },
     { to: '/admin/disclosures', label: 'Add disclosure document' },
     { to: '/', label: 'View public website' },
