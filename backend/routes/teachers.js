@@ -13,6 +13,7 @@ const GENDERS = ['Male', 'Female', 'Other'];
 const DESIGNATIONS = {
   teaching: [
     'Principal',
+    'PGT Maths',
     'PGT Physics',
     'PGT Chemistry',
     'PGT Biology',
@@ -26,9 +27,10 @@ const DESIGNATIONS = {
     'Guest Teacher',
     'Guest Teacher (TGT Science)',
     'Guest Teacher (MCT)',
+    'Guest Teacher (PGT)',
     'Others',
   ],
-  'non-teaching': ['Matron', 'CCA', 'Others'],
+  'non-teaching': ['Matron', 'CCA', 'ANM', 'Jr Assistant/clerk', 'Sr Assistant/Clerk', 'Others'],
 };
 const QUALIFICATIONS = ['Matric', '+2', 'BSc', 'BA', 'BCom', 'MCA', 'MSc', 'BEd', 'PhD', 'D.El.Ed', 'M.Ed.', 'M.A', 'M.Com'];
 
