@@ -15,6 +15,7 @@ export const school = {
   department: 'ST & SC Development Department, Government of Odisha',
   state: 'Odisha',
   district: 'Nabarangpur',
+  websiteAddress: 'https://kmrs-umerkote.pages.dev',
   address: {
     line: 'AT/PO/PS-Umerkote, District Nabarangpur',
     state: 'Odisha',

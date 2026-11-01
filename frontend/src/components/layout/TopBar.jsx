@@ -1,5 +1,7 @@
 import { school } from '../../config/school';
 
+const SCHOOL_CODE = '17471';
+
 // Slim information bar. Only verified contact details are shown.
 export default function TopBar() {
   const phone = school.phone.verified ? school.phone.value : null;
@@ -21,6 +23,7 @@ export default function TopBar() {
             </a>
           )}
           <span>CBSE Affiliation No. {school.affiliationNo}</span>
+          <span>School Code: {SCHOOL_CODE}</span>
         </p>
       </div>
     </div>

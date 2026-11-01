@@ -44,7 +44,7 @@ export default function PublicDisclosure() {
     ["Principal's qualification", school.principal.verified ? school.principal.qualifications : null],
     ['Official email', school.email.verified ? school.email.value : null],
     ['Official contact number', school.phone.verified ? school.phone.value : null],
-    ['Website address', null],
+    ['Website address', school.websiteAddress ? school.websiteAddress : null],
   ];
 
   return (

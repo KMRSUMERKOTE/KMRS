@@ -30,7 +30,7 @@ const STAFF_TYPES = [
   { value: 'teaching', label: 'Teaching staff' },
   { value: 'non-teaching', label: 'Non-teaching staff' },
 ];
-const QUALIFICATIONS = ['Matric', '+2', 'BSc', 'BA', 'BCom', 'MCA', 'MSc', 'BEd', 'PhD', 'D.El.Ed'];
+const QUALIFICATIONS = ['Matric', '+2', 'BSc', 'BA', 'BCom', 'MCA', 'MSc', 'BEd', 'PhD', 'D.El.Ed', 'M.Ed.'];
 
 const blank = {
   name: '',
