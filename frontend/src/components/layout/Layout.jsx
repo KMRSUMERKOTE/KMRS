@@ -5,9 +5,13 @@ import Header from './Header';
 import Footer from './Footer';
 import PencilCursor from '../common/PencilCursor';
 import Splash from '../common/Splash';
+import { useSeo } from '../../hooks/usePageTitle';
 
 export default function Layout() {
   const { pathname, hash } = useLocation();
+
+  // Per-route <head> tags (title, description, canonical, Open Graph, robots).
+  useSeo();
 
   // On every page change: jump to a #section if the link has one, otherwise scroll to the top.
   useEffect(() => {

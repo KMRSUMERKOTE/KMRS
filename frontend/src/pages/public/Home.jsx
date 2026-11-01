@@ -20,6 +20,14 @@ const heroImages = (Array.isArray(heroImage) ? heroImage : [heroImage])
   .filter(Boolean)
   .map((src) => src.replace(/ /g, '%20'));
 
+// Descriptive alt text for the hero photographs, in the same order as `heroImage` in config/content.
+// Update these if you change the hero photographs.
+const heroAlts = [
+  'Classroom at Kalinga Model Residential School, Umarkot (Umerkote)',
+  'Sports ground at Kalinga Model Residential School, Umarkot (Umerkote)',
+  'Computer laboratory at Kalinga Model Residential School, Umarkot (Umerkote)',
+];
+
 const slides = [
   {
     id: 'welcome',
@@ -137,7 +145,9 @@ function HeroSlider() {
                 >
                   <img
                     src={img}
-                    alt=""
+                    alt={heroAlts[i % heroAlts.length]}
+                    fetchPriority={i === 0 ? 'high' : undefined}
+                    loading={i === 0 ? 'eager' : 'lazy'}
                     className={`h-full w-full object-cover transition-transform duration-[8000ms] ease-out motion-reduce:transition-none ${
                       active ? 'scale-110' : 'scale-100'
                     }`}
@@ -161,9 +171,10 @@ function HeroSlider() {
                   <p className="mb-4 inline-block border-l-4 border-ochre-500 pl-3 text-sm font-semibold text-ochre-300">
                     {school.category}
                   </p>
-                  <h1 className="font-serif text-4xl font-bold leading-tight !text-white sm:text-5xl lg:text-6xl">
+                  {/* h2 (not h1): the page's single H1 is the school name, placed above the slider in Home() */}
+                  <h2 className="font-serif text-4xl font-bold leading-tight !text-white sm:text-5xl lg:text-6xl">
                     {s.title}
-                  </h1>
+                  </h2>
                   <p className="mt-5 max-w-xl text-lg text-forest-100">{s.text}</p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <Link to={s.cta.to} className="btn-accent" tabIndex={active ? 0 : -1}>
@@ -270,6 +281,8 @@ export default function Home() {
 
   return (
     <>
+      {/* The page's single H1 (visually hidden so the design is unchanged). */}
+      <h1 className="sr-only">Kalinga Model Residential School, Umarkot (Umerkote), Nabarangpur, Odisha</h1>
       <HeroSlider />
 
       {/* Quick links: raised cards overlapping the hero */}
@@ -321,7 +334,7 @@ export default function Home() {
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <p className="leading-relaxed text-slate-700">
-              Kalinga Model Residential School, Umerkote, is a government-managed educational institution in
+              Kalinga Model Residential School, Umarkot (also written Umerkote), is a government-managed educational institution in
               Nabarangpur district, Odisha, affiliated with the Central Board of Secondary Education. The school
               is part of Odisha&apos;s Kalinga Model Residential School initiative, which seeks to expand access to
               quality education for eligible students.

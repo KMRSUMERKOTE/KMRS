@@ -79,7 +79,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageHeader title="Contact Us" subtitle="Get in touch with the school" />
+      <PageHeader title="Contact Us" subtitle="Get in touch with Kalinga Model Residential School, Umarkot (Umerkote)" />
       <div className="container-page grid gap-8 py-10 lg:grid-cols-5">
         <div className="space-y-5 lg:col-span-2">
           <InfoCard title="Address">
