@@ -14,6 +14,7 @@ const DESIGNATIONS = {
     'PGT Chemistry',
     'PGT Biology',
     'PGT Comp Science',
+    'PGT English',
     'TGT Arts',
     'Assistant Teacher',
     'Sanskrit Teacher',
