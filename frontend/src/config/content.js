@@ -120,7 +120,7 @@ export const facilities = [
     photos: [
        {
         src: "/images/drinking water/water-1.jpeg",
-        alt: "Drnking water facilities at Kalinga Model Residential School",
+        alt: "Drinking water facilities at Kalinga Model Residential School",
       },
     ],
   },

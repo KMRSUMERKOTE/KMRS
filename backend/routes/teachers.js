@@ -30,7 +30,7 @@ const DESIGNATIONS = {
   ],
   'non-teaching': ['Matron', 'CCA', 'Others'],
 };
-const QUALIFICATIONS = ['Matric', '+2', 'BSc', 'BA', 'BCom', 'MCA', 'MSc', 'BEd', 'PhD', 'D.El.Ed'];
+const QUALIFICATIONS = ['Matric', '+2', 'BSc', 'BA', 'BCom', 'MCA', 'MSc', 'BEd', 'PhD', 'D.El.Ed', 'M.Ed.', 'M.A', 'M.Com'];
 
 const view = (u) => ({
   _id: u._id,
