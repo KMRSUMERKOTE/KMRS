@@ -23,16 +23,16 @@ const heroImages = (Array.isArray(heroImage) ? heroImage : [heroImage])
 // Descriptive alt text for the hero photographs, in the same order as `heroImage` in config/content.
 // Update these if you change the hero photographs.
 const heroAlts = [
-  'Classroom at Kalinga Model Residential School, Umarkot (Umerkote)',
-  'Sports ground at Kalinga Model Residential School, Umarkot (Umerkote)',
-  'Computer laboratory at Kalinga Model Residential School, Umarkot (Umerkote)',
+  'Classroom at Kalinga Model Residential School, Umarkot',
+  'Sports ground at Kalinga Model Residential School, Umarkot',
+  'Computer laboratory at Kalinga Model Residential School, Umarkot',
 ];
 
 const slides = [
   {
     id: 'welcome',
     title: school.tagline,
-    text: 'Welcome to Kalinga Model Residential School, Umerkote — a government educational institution in Nabarangpur, Odisha.',
+    text: 'Welcome to Kalinga Model Residential School, Umarkot — a government educational institution in Nabarangpur, Odisha.',
     cta: { to: '/about', label: 'Explore our school' },
     alt: { to: '/admissions', label: 'Admission information' },
   },
@@ -282,7 +282,7 @@ export default function Home() {
   return (
     <>
       {/* The page's single H1 (visually hidden so the design is unchanged). */}
-      <h1 className="sr-only">Kalinga Model Residential School, Umarkot (Umerkote), Nabarangpur, Odisha</h1>
+      <h1 className="sr-only">Kalinga Model Residential School, Umarkot , Nabarangpur, Odisha</h1>
       <HeroSlider />
 
       {/* Quick links: raised cards overlapping the hero */}
@@ -334,7 +334,7 @@ export default function Home() {
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <p className="leading-relaxed text-slate-700">
-              Kalinga Model Residential School, Umarkot (also written Umerkote), is a government-managed educational institution in
+              Kalinga Model Residential School, Umarkot, is a government-managed educational institution in
               Nabarangpur district, Odisha, affiliated with the Central Board of Secondary Education. The school
               is part of Odisha&apos;s Kalinga Model Residential School initiative, which seeks to expand access to
               quality education for eligible students.

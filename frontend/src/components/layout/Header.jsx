@@ -24,7 +24,7 @@ function Wordmark() {
           {school.name}
         </span>
         <span className="block text-xs text-slate-600">
-          Umerkote, Nabarangpur, Odisha · CBSE Aff. No. {school.affiliationNo}
+          Umarkot, Nabarangpur, Odisha · CBSE Aff. No. {school.affiliationNo}
         </span>
       </span>
     </Link>

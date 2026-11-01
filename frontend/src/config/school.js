@@ -6,7 +6,7 @@ export const school = {
   fullName: 'Kalinga Model Residential School, Umarkot, Nabarangpur',
   shortName: 'KMRS Umarkot',
   // Spelling variants of the place name, for search and display. "Umarkot" is the commonly used spelling;
-  // "Umerkote" is the spelling in official records and the postal address.
+  // "Umarkot" is the spelling in official records and the postal address.
   alsoKnownAs: ['Kalinga Model Residential School, Umarkot', 'KMRS Umarkot', 'KMRS Umerkote'],
   tagline: 'Learning Today. Building Tomorrow.',
   category: 'Government Residential School',
@@ -21,15 +21,15 @@ export const school = {
   district: 'Nabarangpur',
   websiteAddress: 'https://kmrsumarkot.in',
   address: {
-    line: 'AT/PO/PS-Umerkote, District Nabarangpur',
+    line: 'AT/PO/PS-Umarkot, District Nabarangpur',
     state: 'Odisha',
     pin: '764073',
-    full: 'Kalinga Model Residential School, Umerkote, Nabarangpur, Odisha 764073',
+    full: 'Kalinga Model Residential School, Umarkot, Nabarangpur, Odisha 764073',
   },
   // Address-based search until exact coordinates are confirmed.
   mapUrl:
     'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent('Kalinga Model Residential School, Umerkote, Nabarangpur, Odisha 764073'),
+    encodeURIComponent('Kalinga Model Residential School, Umarkot, Nabarangpur, Odisha 764073'),
 
   // Official contact details confirmed by the school.
   phone: { value: '+91 6370472684', verified: true },
@@ -62,7 +62,7 @@ export const glance = [
   { label: 'Established', value: String(school.established) },
   { label: 'Management', value: 'Government of Odisha' },
   { label: 'CBSE Affiliation No.', value: school.affiliationNo },
-  { label: 'Location', value: 'Umarkot (Umerkote), Nabarangpur' },
+  { label: 'Location', value: 'Umarkot (Umarkot), Nabarangpur' },
   { label: 'School Model', value: 'Residential' },
   { label: 'Department', value: 'ST & SC Development' },
 ];

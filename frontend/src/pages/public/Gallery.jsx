@@ -44,7 +44,7 @@ export default function Gallery() {
         {!loading && !error && photos.length === 0 && (
           <PendingInfo>
             Photographs will appear here once approved images of the school are added. Only genuine photographs
-            of KMRS Umerkote are published.
+            of KMRS Umarkot are published.
           </PendingInfo>
         )}
 

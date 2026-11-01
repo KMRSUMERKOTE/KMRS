@@ -3,7 +3,7 @@
 // Homepage hero slider photographs (put files in frontend/public/images).
 // One photo per slide, in order: welcome, admissions, residential life.
 // A single string ('/images/campus-hero.jpg') also works and is used for every slide.
-// Leave as [] until genuine KMRS Umerkote photographs are supplied.
+// Leave as [] until genuine KMRS Umarkot photographs are supplied.
 export const heroImage = [
   '/images/classrooms/classroom-1.jpeg',
   '/images/sports/sports-2.jpeg',
@@ -189,7 +189,7 @@ export const residentialTopics = [
     id: 'hostel',
     title: 'Hostel Accommodation',
     content:
-      'Residential life at Kalinga Model Residential School, Umerkote, is intended to provide students with an environment that supports learning, discipline, personal growth, and a sense of community. Hostel arrangements, accommodation facilities, and residential guidelines should be followed as prescribed by the school administration.',
+      'Residential life at Kalinga Model Residential School, Umarkot, is intended to provide students with an environment that supports learning, discipline, personal growth, and a sense of community. Hostel arrangements, accommodation facilities, and residential guidelines should be followed as prescribed by the school administration.',
   },
   {
     id: 'routine',
@@ -219,7 +219,7 @@ export const residentialTopics = [
     id: 'welfare',
     title: 'Student Welfare',
     content:
-      'Kalinga Model Residential School, Umerkote, aims to foster an environment where students can develop academically, socially, and emotionally. Respect, inclusion, cooperation, and responsible behaviour are important values in residential life. Students should feel encouraged to approach the appropriate school authorities when they need guidance or support.',
+      'Kalinga Model Residential School, Umarkot, aims to foster an environment where students can develop academically, socially, and emotionally. Respect, inclusion, cooperation, and responsible behaviour are important values in residential life. Students should feel encouraged to approach the appropriate school authorities when they need guidance or support.',
   },
   {
     id: 'safety',
@@ -268,7 +268,7 @@ export const admissionCycle2026 = {
   facts: [
     'Applicants must be studying in Class V in a school in Odisha.',
     'Age limit: 10–13 years as of 31 March 2026, with a two-year relaxation for eligible children with disabilities.',
-    'Published intake at Umerkote: 30 boys and 30 girls.',
+    'Published intake at Umarkot: 30 boys and 30 girls.',
     'Published seats for each gender: 25 ST, 3 SC and 2 PVTG.',
     'Final application dates: 10 February 2026 (online) and 12 February 2026 (offline). These dates have passed.',
   ],

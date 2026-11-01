@@ -208,7 +208,7 @@ export default function AdminGallery() {
           <label className="flex items-start gap-2 text-sm sm:col-span-2">
             <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
             <span>
-              I confirm these are genuine photographs of Kalinga Model Residential School, Umerkote, and that the school
+              I confirm these are genuine photographs of Kalinga Model Residential School, Umarkot, and that the school
               has permission to publish any identifiable students shown.
             </span>
           </label>

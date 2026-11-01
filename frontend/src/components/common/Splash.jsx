@@ -64,7 +64,7 @@ export default function Splash() {
       <div className="px-6 text-center">
         <img src="/images/KMRS-logo.png" alt="" className="splash-logo mx-auto h-24 w-auto" />
         <p className="splash-name mt-5 font-serif text-2xl font-bold text-forest-900 sm:text-3xl">{school.name}</p>
-        <p className="splash-name mt-1 text-sm text-slate-600">Umerkote, Nabarangpur, Odisha</p>
+        <p className="splash-name mt-1 text-sm text-slate-600">Umarkot, Nabarangpur, Odisha</p>
 
         {/* A pencil writes the underline */}
         <div className="relative mx-auto mt-6 h-6 w-56">

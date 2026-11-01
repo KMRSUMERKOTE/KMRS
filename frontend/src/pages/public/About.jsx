@@ -130,7 +130,7 @@ export default function About() {
 
   return (
     <>
-      <PageHeader title="About Us" subtitle="Kalinga Model Residential School, Umarkot (Umerkote), Nabarangpur" />
+      <PageHeader title="About Us" subtitle="Kalinga Model Residential School, Umarkot (Umarkot), Nabarangpur" />
 
       {/* Key facts */}
       <div className="paper border-b border-forest-100">
@@ -171,7 +171,7 @@ export default function About() {
         <div className="grid gap-6">
           <Block id="intro" title="Introduction">
             <p>
-              Kalinga Model Residential School, Umarkot (also written Umerkote), is a government-managed residential
+              Kalinga Model Residential School, Umarkot, is a government-managed residential
               educational institution in Nabarangpur district, Odisha. The school forms part of Odisha&apos;s Kalinga
               Model Residential School initiative, which aims to expand access to quality education for eligible
               students from tribal and other specified communities. The school&apos;s CBSE affiliation and
