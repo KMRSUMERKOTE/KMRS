@@ -99,6 +99,7 @@ export const navigation = [
   },
   { label: 'Notices & Downloads', to: '/notices' },
   { label: 'Public Disclosure', to: '/public-disclosure' },
+  { label: 'Our Achievers', to: '/achievers' },
   { label: 'Contact Us', to: '/contact' },
 ];
 

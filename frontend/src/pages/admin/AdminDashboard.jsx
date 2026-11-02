@@ -18,6 +18,7 @@ export default function AdminDashboard() {
     { label: 'Published results', value: data.results, to: '/admin/results' },
     { label: 'Marks lists', value: data.classResults ?? 0, to: '/admin/marks-lists' },
     { label: 'Gallery photos', value: data.photos, to: '/admin/gallery', progress: galleryPct, note: `Target: about ${GALLERY_TARGET}` },
+    { label: 'Our Achievers', value: data.achievers ?? 0, to: '/admin/achievers' },
     { label: 'Notices', value: data.notices, to: '/admin/notices' },
     { label: 'Disclosure documents', value: data.disclosures, to: '/admin/disclosures' },
     { label: 'Enquiries', value: data.enquiries, to: '/admin/enquiries', note: `${unread} unread`, highlight: unread > 0 },
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
     { to: '/admin/notices', label: 'Publish a notice' },
     { to: '/admin/marks-lists', label: 'Publish a marks list' },
     { to: '/admin/gallery', label: 'Upload photographs' },
+    { to: '/admin/achievers', label: 'Add an achiever' },
     { to: '/admin/disclosures', label: 'Add disclosure document' },
     { to: '/', label: 'View public website' },
   ];

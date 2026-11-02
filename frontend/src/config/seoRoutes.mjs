@@ -68,6 +68,12 @@ export const routes = {
     description:
       'Photographs from Kalinga Model Residential School (KMRS), Umarkot (Umerkote), Nabarangpur, Odisha: campus, events and student life.',
   },
+  '/achievers': {
+    label: 'Our Achievers',
+    title: 'Our Achievers | KMRS Umarkot (Umerkote)',
+    description:
+      'Students of Kalinga Model Residential School, Umarkot (Umerkote), Nabarangpur, Odisha, who have made the school proud with their achievements.',
+  },
   '/notices': {
     label: 'Notices and Downloads',
     title: 'School Notices and Downloads | KMRS Umarkot (Umerkote)',

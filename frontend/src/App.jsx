@@ -16,6 +16,7 @@ import ResidentialLife from './pages/public/ResidentialLife';
 import Facilities from './pages/public/Facilities';
 import StudentLife from './pages/public/StudentLife';
 import Gallery from './pages/public/Gallery';
+import Achievers from './pages/public/Achievers';
 import Notices from './pages/public/Notices';
 import Results from './pages/public/Results';
 import PublicDisclosure from './pages/public/PublicDisclosure';
@@ -40,6 +41,7 @@ import AdminAcademics from './pages/admin/AdminAcademics';
 import AdminResults from './pages/admin/AdminResults';
 import AdminClassResults from './pages/admin/AdminClassResults';
 import AdminGallery from './pages/admin/AdminGallery';
+import AdminAchievers from './pages/admin/AdminAchievers';
 import AdminActivities from './pages/admin/AdminActivities';
 import AdminNotices from './pages/admin/AdminNotices';
 import AdminDisclosures from './pages/admin/AdminDisclosures';
@@ -61,6 +63,7 @@ export default function App() {
           <Route path="/facilities" element={<Facilities />} />
           <Route path="/student-life" element={<StudentLife />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/achievers" element={<Achievers />} />
           <Route path="/notices" element={<Notices />} />
           <Route path="/public-disclosure" element={<PublicDisclosure />} />
           <Route path="/contact" element={<Contact />} />
@@ -88,6 +91,7 @@ export default function App() {
               <Route path="results" element={<AdminResults />} />
               <Route path="marks-lists" element={<AdminClassResults />} />
               <Route path="gallery" element={<AdminGallery />} />
+              <Route path="achievers" element={<AdminAchievers />} />
               <Route path="activities" element={<AdminActivities />} />
               <Route path="notices" element={<AdminNotices />} />
               <Route path="disclosures" element={<AdminDisclosures />} />
