@@ -232,3 +232,49 @@
 @media (prefers-reduced-motion: reduce) {
   .confirm-note { transform: none; animation: none; }
 }
+
+/* ---------- Ruler scrollbar (the gold progress line is in components/common/ScrollPencil.jsx) ---------- */
+/* The track is a ruler with tick marks; the thumb is a gold highlighter bar. Chrome, Edge, Safari. */
+::-webkit-scrollbar { width: 16px; height: 16px; }
+::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+::-webkit-scrollbar-corner { background: #f8f7fb; }
+
+::-webkit-scrollbar-track:vertical {
+  background-color: #f8f7fb;
+  background-image:
+    repeating-linear-gradient(to bottom, rgba(125, 93, 17, 0.85) 0, rgba(125, 93, 17, 0.85) 1.5px, transparent 1.5px, transparent 40px),
+    repeating-linear-gradient(to bottom, rgba(125, 93, 17, 0.5) 0, rgba(125, 93, 17, 0.5) 1px, transparent 1px, transparent 8px);
+  background-size: 11px 100%, 6px 100%;
+  background-position: right top, right top;
+  background-repeat: no-repeat;
+  border-left: 1px solid #cfcbed;
+}
+::-webkit-scrollbar-track:horizontal {
+  background-color: #f8f7fb;
+  background-image:
+    repeating-linear-gradient(to right, rgba(125, 93, 17, 0.85) 0, rgba(125, 93, 17, 0.85) 1.5px, transparent 1.5px, transparent 40px),
+    repeating-linear-gradient(to right, rgba(125, 93, 17, 0.5) 0, rgba(125, 93, 17, 0.5) 1px, transparent 1px, transparent 8px);
+  background-size: 100% 11px, 100% 6px;
+  background-position: left bottom, left bottom;
+  background-repeat: no-repeat;
+  border-top: 1px solid #cfcbed;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e0b232;
+  background-image: linear-gradient(90deg, #f4e09a 0%, #e0b232 55%, #c99a14 100%);
+  border: 3px solid #f8f7fb;
+  border-radius: 6px;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(90deg, #faf0cd 0%, #ecca5f 55%, #e0b232 100%);
+}
+::-webkit-scrollbar-thumb:active {
+  background-image: linear-gradient(90deg, #e0b232 0%, #c99a14 55%, #a37a10 100%);
+}
+
+/* Firefox cannot draw the ruler; it gets the same colours instead. (Chrome ignores this block.) */
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-width: auto; scrollbar-color: #e0b232 #f1eefa; }
+}

@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import PencilCursor from '../common/PencilCursor';
 import Splash from '../common/Splash';
+import ScrollPencil from '../common/ScrollPencil';
 import { useSeo } from '../../hooks/usePageTitle';
 
 export default function Layout() {
@@ -33,6 +34,7 @@ export default function Layout() {
       >
         Skip to main content
       </a>
+      <ScrollPencil />
       <TopBar />
       <Header />
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">

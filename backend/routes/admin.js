@@ -7,6 +7,7 @@ import Notice from '../models/Notice.js';
 import Disclosure from '../models/Disclosure.js';
 import Enquiry from '../models/Enquiry.js';
 import Achiever from '../models/Achiever.js';
+import Facility from '../models/Facility.js';
 import { authenticate, requireRole } from '../middleware/auth.js';
 import { asyncHandler } from '../utils/helpers.js';
 
@@ -17,7 +18,7 @@ router.get(
   authenticate,
   requireRole('admin'),
   asyncHandler(async (req, res) => {
-    const [teachers, results, classResults, photos, notices, disclosures, enquiries, unreadEnquiries, achievers] =
+    const [teachers, results, classResults, photos, notices, disclosures, enquiries, unreadEnquiries, achievers, facilities] =
       await Promise.all([
         User.countDocuments({ role: 'teacher' }),
         Result.countDocuments(),
@@ -28,8 +29,20 @@ router.get(
         Enquiry.countDocuments(),
         Enquiry.countDocuments({ read: false }),
         Achiever.countDocuments(),
+        Facility.countDocuments(),
       ]);
-    res.json({ teachers, results, classResults, photos, notices, disclosures, enquiries, unreadEnquiries, achievers });
+    res.json({
+      teachers,
+      results,
+      classResults,
+      photos,
+      notices,
+      disclosures,
+      enquiries,
+      unreadEnquiries,
+      achievers,
+      facilities,
+    });
   })
 );
 

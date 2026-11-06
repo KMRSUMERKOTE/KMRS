@@ -41,6 +41,7 @@ import AdminAcademics from './pages/admin/AdminAcademics';
 import AdminResults from './pages/admin/AdminResults';
 import AdminClassResults from './pages/admin/AdminClassResults';
 import AdminGallery from './pages/admin/AdminGallery';
+import AdminFacilities from './pages/admin/AdminFacilities';
 import AdminAchievers from './pages/admin/AdminAchievers';
 import AdminActivities from './pages/admin/AdminActivities';
 import AdminNotices from './pages/admin/AdminNotices';
@@ -91,6 +92,7 @@ export default function App() {
               <Route path="results" element={<AdminResults />} />
               <Route path="marks-lists" element={<AdminClassResults />} />
               <Route path="gallery" element={<AdminGallery />} />
+              <Route path="facilities" element={<AdminFacilities />} />
               <Route path="achievers" element={<AdminAchievers />} />
               <Route path="activities" element={<AdminActivities />} />
               <Route path="notices" element={<AdminNotices />} />

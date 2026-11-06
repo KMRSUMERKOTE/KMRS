@@ -8,6 +8,7 @@ const links = [
   { to: '/admin/results', label: 'Results' },
   { to: '/admin/marks-lists', label: 'Marks Lists' },
   { to: '/admin/gallery', label: 'Photo Gallery' },
+  { to: '/admin/facilities', label: 'Facilities' },
   { to: '/admin/achievers', label: 'Our Achievers' },
   { to: '/admin/activities', label: 'Student Activities' },
   { to: '/admin/notices', label: 'Notices' },

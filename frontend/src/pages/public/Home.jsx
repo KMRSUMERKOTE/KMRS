@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import usePageTitle from '../../hooks/usePageTitle';
 import useFetch from '../../hooks/useFetch';
 import { glance, school } from '../../config/school';
-import { facilities, heroImage } from '../../config/content';
+import { facilities as staticFacilities, heroImage } from '../../config/content';
 import NoticeItem from '../../components/common/NoticeItem';
 import SafeImage from '../../components/common/SafeImage';
 import { Reveal, Tilt } from '../../components/common/Motion';
@@ -277,12 +277,18 @@ export default function Home() {
   usePageTitle('');
   const notices = useFetch('/notices', { limit: 4 });
   const gallery = useFetch('/gallery', { limit: 6 });
-  const confirmedFacilities = facilities.filter((f) => f.status === 'confirmed').slice(0, 6);
+  const facilitiesData = useFetch('/facilities', { limit: 6 });
+  // Backup used only when the server cannot be reached; an empty list from the server stays empty.
+  const fallbackFacilities = staticFacilities
+    .filter((f) => f.status === 'confirmed')
+    .slice(0, 6)
+    .map((f) => ({ _id: f.id, title: f.title, description: f.description }));
+  const shownFacilities = facilitiesData.error ? fallbackFacilities : facilitiesData.data?.facilities || [];
 
   return (
     <>
       {/* The page's single H1 (visually hidden so the design is unchanged). */}
-      <h1 className="sr-only">Kalinga Model Residential School, Umarkot , Nabarangpur, Odisha</h1>
+      <h1 className="sr-only">Kalinga Model Residential School, Umarkot, Nabarangpur, Odisha</h1>
       <HeroSlider />
 
       {/* Quick links: raised cards overlapping the hero */}
@@ -381,11 +387,11 @@ export default function Home() {
       </Section>
 
       {/* Facilities (only confirmed) */}
-      {confirmedFacilities.length > 0 && (
+      {shownFacilities.length > 0 && (
         <Section title="Facilities" action={<Link to="/facilities" className="btn-outline">All Facilities</Link>}>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {confirmedFacilities.map((f) => (
-              <li key={f.id} className="card-lift paper border-l-4 border-l-ochre-500 p-4">
+            {shownFacilities.map((f) => (
+              <li key={f._id} className="card-lift paper border-l-4 border-l-ochre-500 p-4">
                 <h3 className="font-serif text-lg font-semibold">{f.title}</h3>
                 <p className="mt-1 text-sm text-slate-700">{f.description}</p>
               </li>
