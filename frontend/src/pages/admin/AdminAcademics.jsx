@@ -56,7 +56,7 @@ function ClassCard({ cls, index, total, onChange, onMove, onRemove, onError }) {
   const removeSubject = (s) => setSubjects((l) => l.filter((x) => x !== s));
 
   return (
-    <li className="card border-l-4 border-l-forest-700 p-5">
+    <li className="card border-l-4 border-l-forest-700 p-4 sm:p-5">
       {/* Class name and ordering */}
       <div className="flex flex-wrap items-end gap-2">
         <div className="min-w-[160px] flex-1">
@@ -78,9 +78,9 @@ function ClassCard({ cls, index, total, onChange, onMove, onRemove, onError }) {
         {cls.subjects.length} {cls.subjects.length === 1 ? 'subject' : 'subjects'}
       </p>
 
-      <div className="mt-5 grid gap-6 lg:grid-cols-2">
+      <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Exam pattern for THIS class */}
-        <div className="rounded bg-forest-50/60 p-4">
+        <div className="min-w-0 rounded bg-forest-50/60 p-3 sm:p-4">
           <h3 className="font-serif text-base font-semibold">Examination pattern</h3>
           <p className="text-xs text-slate-600">In the order they happen during the year.</p>
 
@@ -93,9 +93,9 @@ function ClassCard({ cls, index, total, onChange, onMove, onRemove, onError }) {
           <ol className="mt-3 space-y-2">
             {cls.examPattern.map((x, i) => (
               <li key={i} className="flex flex-wrap items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-forest-800 text-xs font-bold text-white">{i + 1}</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-forest-800 text-xs font-bold text-white">{i + 1}</span>
                 <label htmlFor={`ex-${index}-${i}`} className="sr-only">Examination {i + 1} of {label}</label>
-                <input id={`ex-${index}-${i}`} className="input max-w-[200px]" maxLength={40} value={x} onChange={(e) => renameExam(i, e.target.value)} />
+                <input id={`ex-${index}-${i}`} className="input min-w-[8rem] max-w-[200px] flex-1 basis-0 sm:flex-none sm:basis-auto" maxLength={40} value={x} onChange={(e) => renameExam(i, e.target.value)} />
                 <button type="button" className="btn-outline px-3" onClick={() => moveExam(i, -1)} disabled={i === 0} aria-label={`Move ${x || 'exam'} up`}>↑</button>
                 <button type="button" className="btn-outline px-3" onClick={() => moveExam(i, 1)} disabled={i === cls.examPattern.length - 1} aria-label={`Move ${x || 'exam'} down`}>↓</button>
                 <button type="button" className="btn-danger px-3" onClick={() => removeExam(i)} aria-label={`Remove ${x || 'exam'} from ${label}`}>✕</button>
@@ -119,7 +119,7 @@ function ClassCard({ cls, index, total, onChange, onMove, onRemove, onError }) {
         </div>
 
         {/* Subjects for THIS class */}
-        <div className="rounded bg-forest-50/60 p-4">
+        <div className="min-w-0 rounded bg-forest-50/60 p-3 sm:p-4">
           <h3 className="font-serif text-base font-semibold">Subjects</h3>
           <p className="text-xs text-slate-600">Only the subjects taught in this class.</p>
 
@@ -275,11 +275,11 @@ export default function AdminAcademics() {
         name. Add only the classes the school has confirmed are running.
       </p>
 
-      <section className="card p-6" aria-labelledby="add-class-h">
+      <section className="card p-4 sm:p-6" aria-labelledby="add-class-h">
         <h2 id="add-class-h" className="section-title !text-xl">Add classes</h2>
 
         <div className="mt-4 flex flex-wrap items-end gap-3">
-          <div>
+          <div className="w-full sm:w-auto">
             <label htmlFor="new-class" className="label">Class name</label>
             <input
               id="new-class"
@@ -291,25 +291,25 @@ export default function AdminAcademics() {
               onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addClass(); } }}
             />
           </div>
-          <div>
+          <div className="w-full sm:w-auto">
             <label htmlFor="new-preset" className="label">Exam pattern</label>
-            <select id="new-preset" className="input" value={newPreset} onChange={(e) => setNewPreset(e.target.value)}>
+            <select id="new-preset" className="input max-w-full" value={newPreset} onChange={(e) => setNewPreset(e.target.value)}>
               <option value="auto">Automatic (Class X and XII get board pattern)</option>
               <option value="standard">Standard: Monthly Internal, Half Yearly, Final</option>
               <option value="board">Board class: Monthly Internal, Preboard 1, Preboard 2, Board</option>
               <option value="none">Empty (I will add exams myself)</option>
             </select>
           </div>
-          <button type="button" className="btn-outline" onClick={addClass} disabled={!newClass.trim()}>Add class</button>
+          <button type="button" className="btn-outline w-full sm:w-auto" onClick={addClass} disabled={!newClass.trim()}>Add class</button>
         </div>
 
         <label className="mt-3 flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={withSubjects} onChange={(e) => setWithSubjects(e.target.checked)} />
+          <input type="checkbox" className="shrink-0" checked={withSubjects} onChange={(e) => setWithSubjects(e.target.checked)} />
           Start new classes with the default six subjects (Math, Science, Odia, English, Social Studies, Computer Science)
         </label>
 
         <div className="mt-4 border-t border-forest-100 pt-4">
-          <button type="button" className="btn-primary" onClick={addQuickClasses}>Add Class VI to Class XII</button>
+          <button type="button" className="btn-primary w-full sm:w-auto" onClick={addQuickClasses}>Add Class VI to Class XII</button>
           <p className="mt-2 text-xs text-slate-600">
             Adds seven classes in one click. Classes VI, VII, VIII, IX and XI get the standard pattern; Classes X and XII
             get the board pattern. Class XI and XII subjects usually depend on the stream, so edit those afterwards.

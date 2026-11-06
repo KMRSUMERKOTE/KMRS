@@ -60,6 +60,49 @@ function PrincipalPhoto({ name }) {
   );
 }
 
+// Magazine cover: same taped-print treatment as the principal's photo, tilted the other way.
+// Photo path: drop the file at public/images/meghasini-magazine.jpeg.
+const MAGAZINE_COVER = '/images/meghasini-magazine.jpeg';
+
+function MagazineCover() {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <figure className="relative mx-auto w-56 shrink-0 rotate-[2deg] transition-transform duration-300 ease-out hover:rotate-0 motion-reduce:transition-none md:mx-0 md:w-60">
+      {/* Tape */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 rotate-[-3deg] border border-ochre-500/30 bg-[#f4e09a]/90 shadow-sm"
+      />
+      <div className="border border-forest-100 bg-white p-3 pb-4 shadow-md">
+        {failed ? (
+          <div
+            role="img"
+            aria-label="Cover of Meghasini (not available)"
+            className="flex aspect-[4/5] w-full flex-col items-center justify-center bg-forest-50 text-center font-serif font-semibold text-forest-700"
+          >
+            <span className="text-3xl">Meghasini</span>
+            <span className="mt-1 text-xs uppercase tracking-wide text-slate-500">Annual Magazine</span>
+          </div>
+        ) : (
+          <img
+            src={MAGAZINE_COVER}
+            alt="Cover of Meghasini, the first edition of the annual magazine of Kalinga Model Residential School, Umerkote, Nabarangpur"
+            loading="lazy"
+            onError={() => setFailed(true)}
+            className="aspect-[4/5] w-full bg-forest-50 object-cover object-top"
+          />
+        )}
+        <figcaption className="mt-3 text-center">
+          <p className="font-serif text-base font-semibold text-forest-900">Meghasini</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">First edition</p>
+          <div className="mx-auto mt-2 h-0.5 w-8 bg-ochre-500" aria-hidden="true" />
+        </figcaption>
+      </div>
+    </figure>
+  );
+}
+
 const sections = [
   ['intro', 'Introduction'],
   ['background', 'Background'],
@@ -70,6 +113,7 @@ const sections = [
   ['principal', "Principal's message"],
   ['governance', 'Governance'],
   ['info', 'Institutional information'],
+  ['magazine', 'Annual magazine'],
   ['location', 'Location'],
 ];
 
@@ -291,6 +335,37 @@ export default function About() {
                 CBSE affiliation record
               </a>
             </p>
+          </Block>
+
+          <Block id="magazine" title="Our Annual Magazine: Meghasini">
+            <div className="grid items-start gap-8 pt-2 md:grid-cols-[1fr_15rem]">
+              <div className="space-y-3 md:order-1">
+                <p>
+                  <span className="inline-block rounded-full border border-ochre-500/40 bg-ochre-50 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-forest-900">
+                    First edition
+                  </span>
+                </p>
+                <p>
+                  <span className="font-serif text-xl font-semibold text-forest-900">
+                    <span lang="or">ମେଘାସିନୀ</span> &middot; Meghasini
+                  </span>
+                </p>
+                <p>
+                  <em>Meghasini</em> is the annual magazine of Kalinga Model Residential School, Umerkote,
+                  Nabarangpur. Its first edition marks the beginning of a yearly tradition: a place where the
+                  school&apos;s year is gathered, remembered and shared with students, parents, teachers and the
+                  wider community.
+                </p>
+                <p>
+                  A school magazine is more than a printed keepsake. It gives students a voice and a space to
+                  express themselves, and it records the everyday life of the campus for the years ahead. We hope
+                  each new edition of Meghasini will grow along with the school.
+                </p>
+              </div>
+              <div className="md:order-2">
+                <MagazineCover />
+              </div>
+            </div>
           </Block>
 
           <Block id="location" title="Location and Contact">

@@ -53,7 +53,7 @@ function PhotoCard({ photo, onChanged, setStatus }) {
   };
 
   return (
-    <li className="card overflow-hidden">
+    <li className="card min-w-0 overflow-hidden">
       <div className="relative">
         <SafeImage src={photo.url} alt={alt || caption} />
         <span className="absolute left-2 top-2 rounded-full bg-forest-900/85 px-3 py-0.5 text-xs font-medium text-white">
@@ -164,14 +164,14 @@ export default function AdminGallery() {
 
   return (
     <div className="space-y-8">
-      <section className="card p-6" aria-labelledby="gal-up">
+      <section className="card p-4 sm:p-6" aria-labelledby="gal-up">
         <h2 id="gal-up" className="section-title !text-xl">Upload photographs</h2>
         <p className="mt-1 text-sm text-slate-600">
           You can select many files at once (JPG, PNG or WebP, up to {MAX_MB} MB each). All files in one upload share
           the category you choose; you can change each photo&apos;s category afterwards.
         </p>
 
-        <form onSubmit={upload} noValidate className="mt-4 grid gap-4 sm:grid-cols-2">
+        <form onSubmit={upload} noValidate className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="g-cat" className="label">Category</label>
             <select id="g-cat" className="input" value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -206,7 +206,7 @@ export default function AdminGallery() {
           )}
 
           <label className="flex items-start gap-2 text-sm sm:col-span-2">
-            <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+            <input type="checkbox" className="mt-1 shrink-0" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
             <span>
               I confirm these are genuine photographs of Kalinga Model Residential School, Umarkot, and that the school
               has permission to publish any identifiable students shown.
@@ -236,7 +236,7 @@ export default function AdminGallery() {
         {problems.length > 0 && (
           <div role="alert" className="mt-3 rounded bg-red-50 p-3 text-sm text-red-800">
             <p className="font-semibold">Some files were not uploaded:</p>
-            <ul className="list-disc pl-5">{problems.map((p) => <li key={p}>{p}</li>)}</ul>
+            <ul className="list-disc break-words pl-5">{problems.map((p) => <li key={p}>{p}</li>)}</ul>
           </div>
         )}
       </section>
@@ -246,7 +246,7 @@ export default function AdminGallery() {
           <h2 id="gal-list" className="section-title !text-xl">Gallery ({photos.length} photographs)</h2>
           {missingAlt > 0 && (
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={onlyMissingAlt} onChange={(e) => setOnlyMissingAlt(e.target.checked)} />
+              <input type="checkbox" className="shrink-0" checked={onlyMissingAlt} onChange={(e) => setOnlyMissingAlt(e.target.checked)} />
               Show only photos without alt text ({missingAlt})
             </label>
           )}
@@ -258,7 +258,7 @@ export default function AdminGallery() {
         {error && <p role="alert" className="mt-3 text-red-700">{error}</p>}
         {!loading && !error && photos.length === 0 && <p className="mt-3 text-slate-600">No photographs yet.</p>}
 
-        <ul className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {shown.map((p) => (
             <PhotoCard key={p._id} photo={p} onChanged={reload} setStatus={setStatus} />
           ))}

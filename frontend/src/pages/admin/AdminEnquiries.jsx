@@ -61,7 +61,7 @@ export default function AdminEnquiries() {
   );
 
   return (
-    <section className="card p-6" aria-labelledby="enq-h">
+    <section className="card p-4 sm:p-6" aria-labelledby="enq-h">
       <h2 id="enq-h" className="section-title !text-xl">Contact enquiries ({enquiries.length})</h2>
       <p className="mt-1 text-sm text-slate-600">
         Messages sent through the public Contact page. Delete them once handled; they contain personal details.
@@ -84,37 +84,37 @@ export default function AdminEnquiries() {
         {visible.map((q) => (
           <li
             key={q._id}
-            className={`rounded border border-l-4 p-4 ${
+            className={`rounded border border-l-4 p-3 sm:p-4 ${
               q.read ? 'border-forest-100 border-l-forest-200 bg-white' : 'border-ochre-300 border-l-ochre-500 bg-ochre-50'
             }`}
           >
             <div className="flex flex-wrap items-start justify-between gap-3">
-              <div className="flex items-start gap-3">
+              <div className="flex min-w-0 items-start gap-3">
                 <span
                   aria-hidden="true"
                   className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-800 font-serif font-bold text-white"
                 >
                   {(q.name || '?').trim().charAt(0).toUpperCase()}
                 </span>
-                <div>
-                  <p className="font-semibold text-forest-900">
+                <div className="min-w-0">
+                  <p className="break-words font-semibold text-forest-900">
                     {q.name}{' '}
                     {!q.read && <span className="ml-2 rounded bg-ochre-500 px-2 py-0.5 text-xs font-bold text-forest-950">NEW</span>}
                   </p>
-                  <p className="text-sm text-slate-700">
-                    <a className="underline" href={`mailto:${q.email}`}>{q.email}</a>
+                  <p className="break-words text-sm text-slate-700">
+                    <a className="break-all underline" href={`mailto:${q.email}`}>{q.email}</a>
                     {q.phone && <> · {q.phone}</>}
                   </p>
                   <p className="text-xs text-slate-600">{formatDateTime(q.createdAt)}</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {!q.read && <button type="button" className="btn-outline" onClick={() => markRead(q)}>Mark as read</button>}
                 <button type="button" className="btn-danger" onClick={() => remove(q)} aria-label={`Delete enquiry from ${q.name}`}>Delete</button>
               </div>
             </div>
             {/* Rendered as plain text, never as HTML. */}
-            <p className="mt-3 whitespace-pre-wrap text-sm text-slate-800">{q.message}</p>
+            <p className="mt-3 whitespace-pre-wrap break-words text-sm text-slate-800">{q.message}</p>
           </li>
         ))}
       </ul>

@@ -94,11 +94,11 @@ export default function AdminNotices() {
 
   return (
     <div className="space-y-8">
-      <section className="card p-6" aria-labelledby="new-n">
+      <section className="card p-4 sm:p-6" aria-labelledby="new-n">
         <h2 id="new-n" className="section-title !text-xl">Publish a notice</h2>
         <p className="mt-1 text-sm text-slate-600">Publish only genuine, approved notices. Notices appear on the public site immediately.</p>
 
-        <form onSubmit={submit} noValidate className="mt-4 grid gap-4 sm:grid-cols-2">
+        <form onSubmit={submit} noValidate className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">{text('title', 'Title', { maxLength: 150, required: true })}</div>
 
           <div>
@@ -140,7 +140,7 @@ export default function AdminNotices() {
 
       <StatusMessage status={status} />
 
-      <section className="card p-6" aria-labelledby="all-n">
+      <section className="card p-4 sm:p-6" aria-labelledby="all-n">
         <h2 id="all-n" className="section-title !text-xl">All notices ({notices.length})</h2>
 
         {notices.length > 0 && (

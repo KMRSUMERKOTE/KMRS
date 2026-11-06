@@ -112,7 +112,7 @@ export default function AdminDisclosures() {
       {!loading && !error && (
         <section aria-labelledby="d-progress">
           <h2 id="d-progress" className="section-title !text-xl">Documents published</h2>
-          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {progress.map((p) => {
               const pct = p.total ? Math.round((p.done / p.total) * 100) : 0;
               return (
@@ -136,9 +136,9 @@ export default function AdminDisclosures() {
         </section>
       )}
 
-      <section className="card p-6" aria-labelledby="d-add">
+      <section className="card p-4 sm:p-6" aria-labelledby="d-add">
         <h2 id="d-add" className="section-title !text-xl">Add a disclosure document</h2>
-        <form onSubmit={submit} noValidate className="mt-4 grid gap-4 sm:grid-cols-2">
+        <form onSubmit={submit} noValidate className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="d-section" className="label">Section</label>
             <select id="d-section" className="input" value={form.section} onChange={changeSection}>
@@ -193,12 +193,12 @@ export default function AdminDisclosures() {
 
       <StatusMessage status={status} />
 
-      <section className="card p-6" aria-labelledby="d-all">
+      <section className="card p-4 sm:p-6" aria-labelledby="d-all">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2 id="d-all" className="section-title !text-xl">Published documents ({visibleItems.length})</h2>
-          <div>
+          <div className="w-full sm:w-auto">
             <label htmlFor="d-filter" className="label">Show section</label>
-            <select id="d-filter" className="input" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)}>
+            <select id="d-filter" className="input max-w-full" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)}>
               <option value="">All sections</option>
               {disclosureSections.map((s) => <option key={s.id} value={s.id}>{s.id}. {s.title}</option>)}
             </select>

@@ -172,12 +172,12 @@ export default function AdminActivities() {
         appear on the public Student Life page immediately.
       </p>
 
-      <section ref={formRef} className="card p-6" aria-labelledby="act-form-h">
-        <h2 id="act-form-h" className="section-title !text-xl">
+      <section ref={formRef} className="card p-4 sm:p-6" aria-labelledby="act-form-h">
+        <h2 id="act-form-h" className="section-title break-words !text-xl">
           {editing ? `Edit activity: ${editing.title}` : 'Add an activity'}
         </h2>
 
-        <form onSubmit={submit} noValidate className="mt-4 grid gap-4 sm:grid-cols-2">
+        <form onSubmit={submit} noValidate className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">{text('title', 'Title', { maxLength: 120, required: true })}</div>
 
           {text('date', 'Date of the activity', { type: 'date', required: true })}
@@ -209,7 +209,7 @@ export default function AdminActivities() {
           </div>
 
           {/* Photograph */}
-          <fieldset className="rounded border border-forest-100 p-4 sm:col-span-2">
+          <fieldset className="min-w-0 rounded border border-forest-100 p-3 sm:col-span-2 sm:p-4">
             <legend className="px-2 text-sm font-semibold text-forest-900">Photograph (optional)</legend>
 
             {editing?.photoUrl && (
@@ -218,7 +218,7 @@ export default function AdminActivities() {
                   <SafeImage src={editing.photoUrl} alt={editing.photoAlt} />
                 </div>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" checked={removePhoto} onChange={(e) => setRemovePhoto(e.target.checked)} disabled={Boolean(file)} />
+                  <input type="checkbox" className="shrink-0" checked={removePhoto} onChange={(e) => setRemovePhoto(e.target.checked)} disabled={Boolean(file)} />
                   Remove the current photograph
                 </label>
               </div>
@@ -251,7 +251,7 @@ export default function AdminActivities() {
             {file && (
               <div className="mt-3">
                 <label className="flex items-start gap-2 text-sm">
-                  <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} aria-describedby={errors.consent ? 'a-consent-err' : undefined} />
+                  <input type="checkbox" className="mt-1 shrink-0" checked={consent} onChange={(e) => setConsent(e.target.checked)} aria-describedby={errors.consent ? 'a-consent-err' : undefined} />
                   <span>
                     I confirm this is a genuine photograph from Kalinga Model Residential School, Umarkot, and that the
                     school has permission to publish any identifiable students shown.
@@ -296,8 +296,8 @@ export default function AdminActivities() {
                   <span className="rounded bg-ochre-100 px-2 py-0.5 font-semibold text-ochre-800">{a.category}</span>
                   <span className="text-slate-600">{formatDate(a.date)}</span>
                 </p>
-                <h3 className="mt-1 font-serif text-lg font-semibold text-forest-900">{a.title}</h3>
-                <p className="mt-1 text-sm text-slate-700">{a.description}</p>
+                <h3 className="mt-1 break-words font-serif text-lg font-semibold text-forest-900">{a.title}</h3>
+                <p className="mt-1 break-words text-sm text-slate-700">{a.description}</p>
               </div>
               <div className="flex gap-2 sm:flex-col">
                 <button type="button" className="btn-outline" onClick={() => startEdit(a)} aria-label={`Edit: ${a.title}`}>Edit</button>

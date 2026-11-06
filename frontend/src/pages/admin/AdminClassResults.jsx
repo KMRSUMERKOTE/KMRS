@@ -147,13 +147,13 @@ export default function AdminClassResults() {
 
   return (
     <div className="space-y-8">
-      <section className="card p-6" aria-labelledby="cr-form-h">
+      <section className="card p-4 sm:p-6" aria-labelledby="cr-form-h">
         <h2 id="cr-form-h" className="section-title !text-xl">Upload a marks list (PDF)</h2>
         <p className="mt-1 text-sm text-slate-600">
           Upload the ready-made marks list of a class for one examination. Only administrators can publish marks lists.
         </p>
 
-        <form onSubmit={submit} noValidate className="mt-5 grid gap-4 sm:grid-cols-2">
+        <form onSubmit={submit} noValidate className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {select('className', 'Class', classOptions, form.className)}
           {select('exam', 'Examination', examOptions, form.exam, !form.className, form.className ? 'Select…' : 'Select a class first')}
           {select('academicYear', 'Academic year', years, form.academicYear)}
@@ -170,7 +170,7 @@ export default function AdminClassResults() {
             />
           </div>
           {!form.title.trim() && autoTitle && (
-            <p className="text-xs text-slate-600 sm:col-span-2">
+            <p className="break-words text-xs text-slate-600 sm:col-span-2">
               It will be published as: <span className="font-medium text-forest-900">{autoTitle}</span>
             </p>
           )}
@@ -188,7 +188,7 @@ export default function AdminClassResults() {
               aria-describedby={errors.file ? 'cr-file-err' : undefined}
             />
             {file && !errors.file && (
-              <p className="mt-2 inline-flex items-center gap-2 rounded bg-forest-50 px-3 py-1 text-sm text-forest-900">
+              <p className="mt-2 inline-flex max-w-full items-center gap-2 break-all rounded bg-forest-50 px-3 py-1 text-sm text-forest-900">
                 <span aria-hidden="true">📄</span> {file.name} <span className="text-slate-600">· {formatSize(file.size)}</span>
               </p>
             )}
@@ -221,10 +221,10 @@ export default function AdminClassResults() {
         <div className="mt-3"><StatusMessage status={status} /></div>
       </section>
 
-      <section className="card p-6" aria-labelledby="cr-list-h">
+      <section className="card p-4 sm:p-6" aria-labelledby="cr-list-h">
         <h2 id="cr-list-h" className="section-title !text-xl">Published marks lists ({all.length})</h2>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="sm:col-span-2">
             <label htmlFor="cr-search" className="label">Search</label>
             <input

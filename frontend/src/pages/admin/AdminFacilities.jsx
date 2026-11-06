@@ -117,7 +117,7 @@ function FacilityCard({ item, index, total, onChanged, setStatus }) {
   const shownPhoto = preview || (!removePhoto ? item.url : '');
 
   return (
-    <li className="card overflow-hidden">
+    <li className="card min-w-0 overflow-hidden">
       <div className="relative">
         {shownPhoto ? (
           <SafeImage src={shownPhoto} alt={photoAlt || title} />
@@ -160,12 +160,12 @@ function FacilityCard({ item, index, total, onChanged, setStatus }) {
         </div>
         {item.url && (
           <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={removePhoto} disabled={!!newFile} onChange={(e) => setRemovePhoto(e.target.checked)} />
+            <input type="checkbox" className="shrink-0" checked={removePhoto} disabled={!!newFile} onChange={(e) => setRemovePhoto(e.target.checked)} />
             Remove the current photograph
           </label>
         )}
         <label className="flex items-center gap-2 text-sm font-medium">
-          <input type="checkbox" checked={visible} onChange={(e) => setVisible(e.target.checked)} />
+          <input type="checkbox" className="shrink-0" checked={visible} onChange={(e) => setVisible(e.target.checked)} />
           Show on the website
         </label>
 
@@ -233,14 +233,14 @@ export default function AdminFacilities() {
 
   return (
     <div className="space-y-8">
-      <section className="card p-6" aria-labelledby="fac-add">
+      <section className="card p-4 sm:p-6" aria-labelledby="fac-add">
         <h2 id="fac-add" className="section-title !text-xl">Add a facility</h2>
         <p className="mt-1 text-sm text-slate-600">
           Facilities appear on the public Facilities page (and the first six on the home page). A photograph is
           optional (JPG, PNG or WebP, up to {MAX_MB} MB).
         </p>
 
-        <form onSubmit={submit} noValidate className="mt-4 grid gap-4 sm:grid-cols-2">
+        <form onSubmit={submit} noValidate className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="fac-title" className="label">Facility name</label>
             <input id="fac-title" className="input" maxLength={TITLE_MAX} value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -271,13 +271,13 @@ export default function AdminFacilities() {
           {preview && (
             <div className="sm:col-span-2">
               <p className="label">Preview</p>
-              <img src={preview} alt="Selected photograph preview" className="h-32 w-44 rounded border border-forest-200 object-cover" />
+              <img src={preview} alt="Selected photograph preview" className="h-32 w-44 max-w-full rounded border border-forest-200 object-cover" />
             </div>
           )}
 
           {file && (
             <label className="flex items-start gap-2 text-sm sm:col-span-2">
-              <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+              <input type="checkbox" className="mt-1 shrink-0" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
               <span>
                 I confirm this is a genuine photograph of Kalinga Model Residential School, Umarkot, and that the
                 school has permission to publish any identifiable students shown.
@@ -286,7 +286,7 @@ export default function AdminFacilities() {
           )}
 
           <label className="flex items-center gap-2 text-sm font-medium sm:col-span-2">
-            <input type="checkbox" checked={visible} onChange={(e) => setVisible(e.target.checked)} />
+            <input type="checkbox" className="shrink-0" checked={visible} onChange={(e) => setVisible(e.target.checked)} />
             Show on the website
           </label>
 
@@ -310,7 +310,7 @@ export default function AdminFacilities() {
         {error && <p role="alert" className="mt-3 text-red-700">{error}</p>}
         {!loading && !error && items.length === 0 && <p className="mt-3 text-slate-600">No facilities yet.</p>}
 
-        <ul className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {items.map((f, i) => (
             <FacilityCard key={f._id} item={f} index={i} total={items.length} onChanged={reload} setStatus={setStatus} />
           ))}
