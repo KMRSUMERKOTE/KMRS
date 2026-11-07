@@ -7,6 +7,7 @@ const links = [
   { to: '/admin/academics', label: 'Exam Pattern & Subjects' },
   { to: '/admin/results', label: 'Results' },
   { to: '/admin/marks-lists', label: 'Marks Lists' },
+  { to: '/admin/question-bank', label: 'Question Bank' },
   { to: '/admin/gallery', label: 'Photo Gallery' },
   { to: '/admin/facilities', label: 'Facilities' },
   { to: '/admin/achievers', label: 'Our Achievers' },

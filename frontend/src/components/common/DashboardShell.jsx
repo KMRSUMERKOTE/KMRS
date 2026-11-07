@@ -16,7 +16,7 @@ export default function DashboardShell({ title, links }) {
     <div>
       <div className="border-b border-forest-100 bg-gradient-to-br from-forest-900 to-forest-800 text-white">
         <div className="container-page flex flex-wrap items-center justify-between gap-4 py-5">
-          <div className="flex items-center gap-4">
+          <div className="flex min-w-0 items-center gap-4">
             {showPic ? (
               <img
                 src={pic}
@@ -33,7 +33,7 @@ export default function DashboardShell({ title, links }) {
                 {initial}
               </span>
             )}
-            <div>
+            <div className="min-w-0">
               <h1 className="font-serif text-2xl font-semibold !text-white">{title}</h1>
               <p className="text-sm text-forest-200">Signed in as {user?.name}</p>
             </div>
@@ -50,8 +50,8 @@ export default function DashboardShell({ title, links }) {
         <div className="motif-strip" aria-hidden="true" />
       </div>
 
-      <div className="container-page grid gap-6 py-8 md:grid-cols-[230px_1fr]">
-        <nav aria-label={`${title} navigation`} className="md:sticky md:top-4 md:self-start">
+      <div className="container-page grid grid-cols-[minmax(0,1fr)] gap-6 py-8 md:grid-cols-[230px_1fr]">
+        <nav aria-label={`${title} navigation`} className="min-w-0 md:sticky md:top-4 md:self-start">
           <ul className="flex gap-2 overflow-x-auto pb-1 md:flex-col md:gap-1 md:overflow-visible md:rounded md:border md:border-forest-100 md:bg-white md:p-2">
             {links.map((l) => (
               <li key={l.to} className="shrink-0">

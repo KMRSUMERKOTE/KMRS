@@ -22,6 +22,7 @@ import adminRoutes from './routes/admin.js';
 import staffRoutes from './routes/staff.js';
 import achieversRoutes from './routes/achievers.js';
 import facilityRoutes from './routes/facilities.js';
+import questionBankRoutes from './routes/questionBank.js';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -137,6 +138,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/achievers', achieversRoutes);
 app.use('/api/facilities', facilityRoutes);
+app.use('/api/question-bank', questionBankRoutes);
 
 // API 404 and error handling.
 app.use('/api', notFound);

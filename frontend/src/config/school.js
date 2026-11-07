@@ -84,6 +84,7 @@ export const navigation = [
     children: [
       { label: 'Academics Overview', to: '/academics' },
       { label: 'Examination Results', to: '/results' },
+      { label: 'Question Bank', to: '/question-bank' },
     ],
   },
   { label: 'Admissions', to: '/admissions' },

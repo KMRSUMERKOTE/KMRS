@@ -17,6 +17,7 @@ export default function AdminDashboard() {
     { label: 'Teachers', value: data.teachers, to: '/admin/teachers' },
     { label: 'Published results', value: data.results, to: '/admin/results' },
     { label: 'Marks lists', value: data.classResults ?? 0, to: '/admin/marks-lists' },
+    { label: 'Question bank papers', value: data.questionBanks ?? 0, to: '/admin/question-bank' },
     { label: 'Gallery photos', value: data.photos, to: '/admin/gallery', progress: galleryPct, note: `Target: about ${GALLERY_TARGET}` },
     { label: 'Facilities', value: data.facilities ?? 0, to: '/admin/facilities' },
     { label: 'Our Achievers', value: data.achievers ?? 0, to: '/admin/achievers' },
@@ -28,6 +29,7 @@ export default function AdminDashboard() {
   const quick = [
     { to: '/admin/notices', label: 'Publish a notice' },
     { to: '/admin/marks-lists', label: 'Publish a marks list' },
+    { to: '/admin/question-bank', label: 'Upload a question paper' },
     { to: '/admin/gallery', label: 'Upload photographs' },
     { to: '/admin/facilities', label: 'Manage facilities' },
     { to: '/admin/achievers', label: 'Add an achiever' },
@@ -42,23 +44,25 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 max-w-full space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <h2 className="section-title">Overview</h2>
           <p className="mt-1 text-slate-700">Manage everything that appears on the school website.</p>
         </div>
-        <ul className="flex flex-wrap gap-2" aria-label="Quick actions">
+        <ul className="flex min-w-0 max-w-full flex-wrap gap-2" aria-label="Quick actions">
           {quick.map((q) => (
-            <li key={q.to}><Link to={q.to} className="btn-outline">{q.label}</Link></li>
+            <li key={q.to} className="max-w-full">
+              <Link to={q.to} className="btn-outline max-w-full whitespace-normal text-center">{q.label}</Link>
+            </li>
           ))}
         </ul>
       </div>
 
       {unread > 0 && (
         <p role="status" className="flex flex-wrap items-center justify-between gap-3 rounded border border-ochre-300 border-l-4 border-l-ochre-500 bg-ochre-50 p-4 text-sm text-slate-800">
-          <span>You have {unread} unread {unread === 1 ? 'enquiry' : 'enquiries'} from the Contact page.</span>
-          <Link to="/admin/enquiries" className="btn-primary">Read enquiries</Link>
+          <span className="min-w-0">You have {unread} unread {unread === 1 ? 'enquiry' : 'enquiries'} from the Contact page.</span>
+          <Link to="/admin/enquiries" className="btn-primary whitespace-normal">Read enquiries</Link>
         </p>
       )}
 
@@ -66,9 +70,9 @@ export default function AdminDashboard() {
         {cards.map((c) => (
           <li
             key={c.label}
-            className={`card border-t-4 p-5 transition-shadow hover:shadow-md ${c.highlight ? 'border-t-ochre-500' : 'border-t-forest-700'}`}
+            className={`card min-w-0 border-t-4 p-5 transition-shadow hover:shadow-md ${c.highlight ? 'border-t-ochre-500' : 'border-t-forest-700'}`}
           >
-            <p className="text-sm font-semibold text-slate-600">{c.label}</p>
+            <p className="break-words text-sm font-semibold text-slate-600">{c.label}</p>
             <p className="mt-1 font-serif text-4xl font-bold text-forest-900">{c.value}</p>
             {c.progress !== undefined && (
               <div
@@ -101,7 +105,7 @@ export default function AdminDashboard() {
               >
                 {s.done ? '✓' : i + 1}
               </span>
-              <span>
+              <span className="min-w-0 break-words">
                 {s.text} <Link className="font-semibold underline" to={s.to}>{s.link}</Link>
                 {s.suffix || '.'}
                 {s.done && <span className="sr-only"> (done)</span>}

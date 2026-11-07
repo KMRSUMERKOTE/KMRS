@@ -38,6 +38,12 @@ export const routes = {
     description:
       'KMRS Umarkot (Umerkote) examination results: result documents and class-wise marks lists published by Kalinga Model Residential School, Nabarangpur.',
   },
+  '/question-bank': {
+    label: 'Question Bank',
+    title: 'Question Bank and Previous Year Papers | KMRS Umarkot (Umerkote)',
+    description:
+      'Question bank and previous year question papers by class and subject from Kalinga Model Residential School (KMRS), Umarkot (Umerkote), Nabarangpur, Odisha.',
+  },
   '/admissions': {
     label: 'Admissions',
     title: 'KMRS Admission, Class VI (KMRSST) | Umarkot (Umerkote)',
